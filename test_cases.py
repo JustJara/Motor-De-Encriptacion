@@ -82,6 +82,40 @@ class EncriptionTests(unittest.TestCase):
 
         self.assertRaises(motor_encripcion.InvalidSecretKey,motor_encripcion.desencriptar(clave_secreta,mensaje_encriptado))
     
+    #Caso error #3
+    def test_desencriptar_mensaje_sin_encriptar(self):
+    
+        mensaje_a_desencriptar = "hola lola"
+        clave_secreta = "mi_clave_secreta"
+
+        self.assertRaises(motor_encripcion.MessageIsNotEncrypted, motor_encripcion.desencriptar(clave_secreta,mensaje_a_desencriptar))
+    
+    #Caso error #4
+    def test_desencriptar_sin_clave(self):
+    
+        mensaje_a_desencriptar = "jRGI7mP54JIf0FO3iWm+dj7VnmqVgk35LEuS9uw0VbeBCNTskhgC8E6jvdHRNb0QQs8HAwL2fMsm2i+z1N494Q"
+        clave_secreta = ""
+
+        self.assertRaises(motor_encripcion.EmptySecretKey,motor_encripcion.desencriptar(clave_secreta,mensaje_a_desencriptar))
+
+    #Caso error #5
+    def test_encriptar_con_clave_con_simbolos(self):
+
+        mensaje_a_encriptar = "Este mensaje será encriptado"
+        clave_secreta = "ñññ%%/;;"
+
+        self.assertRaises(motor_encripcion.InvalidSecretKey,motor_encripcion.encriptar(clave_secreta,mensaje_a_encriptar))
+
+    #Caso error #6
+    def test_encriptacion_con_clave_de_longitud_invalida(self):
+
+        mensaje_a_encriptar = "El mensaje no se podrá encriptar por la clave de longitud inválida"
+        clave_secreta = "esta_clave_no_sera_valida_para_encriptar"
+
+        self.assertRaises(motor_encripcion.InvalidSecretKey,motor_encripcion.encriptar(clave_secreta,mensaje_a_encriptar))
+
+    
+
     #Caso excepcional #1
     def test_encriptacion_emoji(self):
     
@@ -115,21 +149,6 @@ class EncriptionTests(unittest.TestCase):
 
         self.assertEqual(mensaje_original,mensaje_desencriptado)
 
-    #Caso error #3
-    def test_desencriptar_mensaje_sin_encriptar(self):
-    
-        mensaje_a_desencriptar = "hola lola"
-        clave_secreta = "mi_clave_secreta"
-
-        self.assertRaises(motor_encripcion.MessageIsNotEncrypted, motor_encripcion.desencriptar(clave_secreta,mensaje_a_desencriptar))
-    
-    #Caso error #4
-    def test_desencriptar_sin_clave(self):
-    
-        mensaje_a_desencriptar = "jRGI7mP54JIf0FO3iWm+dj7VnmqVgk35LEuS9uw0VbeBCNTskhgC8E6jvdHRNb0QQs8HAwL2fMsm2i+z1N494Q"
-        clave_secreta = ""
-
-        self.asserRaises(motor_encripcion.EmptySecretKey,motor_encripcion.desencriptar(clave_secreta,mensaje_a_desencriptar))
 
     #Caso excepcional #4
     def test_encriptacion_con_simbolos(self):
@@ -142,7 +161,16 @@ class EncriptionTests(unittest.TestCase):
 
         self.assertEqual(mensaje_encriptado_esperado,mensaje_encriptado)
 
+    #Caso excepcional #5
+    def test_encriptar_mensaje_encriptado(self):
 
+        mensaje_a_encriptar = 'UB9bS7pE1fkbqzjsrPrVSID8qynXGZS3g23ImLvKsIi87PEAJKi4et9n+SPWjg70'
+        clave_encriptacion = 'mi_clave_secreta'
+
+        mensaje_encriptado_esperado = 'gNLOIT1dUEm+2M1wAevcC9jf13Vb6/tm5ydXBwMGpxKwOP2HUYsGqTdhtGENsWX6RdZrmnee6DIhkI+ZlTriX91TFyme4QG80qXM5ixAtLUknUCQ7mQo1Z0TeHtPRQBn'
+        mensaje_encriptado = motor_encripcion.encriptar(clave_encriptacion, mensaje_a_encriptar)
+
+        self.assertEqual(mensaje_encriptado_esperado, mensaje_encriptado)
 
 
 
