@@ -114,6 +114,22 @@ class EncriptionTests(unittest.TestCase):
 
         self.assertRaises(motor_encripcion.InvalidSecretKey,motor_encripcion.encriptar(clave_secreta,mensaje_a_encriptar))
 
+    #Caso error #7
+    def test_datos_entrada_vacios(self):
+
+        mensaje_a_encriptar = ""
+        clave_secreta = ""
+
+        self.assertRaises(motor_encripcion.EmptyInputValuesError,motor_encripcion.encriptar(mensaje_a_encriptar,clave_secreta))
+
+    #Caso error #8
+        
+    def test_encriptar_sin_clave(self):
+
+        mensaje_a_encriptar = "Cuando una fuerza actua sobre un objeto este se pone en movimiento"
+        clave_secreta=""
+
+        self.assertRaises(motor_encripcion.EmptySecretKey,motor_encripcion.encriptar(mensaje_a_encriptar,clave_secreta))
     
 
     #Caso excepcional #1

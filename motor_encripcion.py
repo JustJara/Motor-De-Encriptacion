@@ -10,6 +10,9 @@ class MessageIsNotEncrypted(Exception):
 class EmptySecretKey(Exception):
     pass
 
+class EmptyInputValuesError(Exception):
+    pass
+
 def encriptar():
     pass
 
