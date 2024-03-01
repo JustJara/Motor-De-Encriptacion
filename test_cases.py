@@ -56,7 +56,7 @@ class EncriptionTests(unittest.TestCase):
 
     def test_desencriptacion3(self):
 
-        clave_secreta = "mi_clave_secreta"
+        clave_secreta = "mi_clavesota_belica"
         mensaje_original = "Piensa, luego existe"
         mensaje_encriptado = "jRGI7mP54JIf0FO3iWm+dj7VnmqVgk35LEuS9uw0VbeBCNTskhgC8E6jvdHRNb0QQs8HAwL2fMsm2i+z1N494Q"
 
@@ -67,7 +67,7 @@ class EncriptionTests(unittest.TestCase):
     #Caso de error #1
     def test_mensaje_a_encriptar_vacio(self):
 
-        clave_secreta = "mi_clave_secreta"
+        clave_secreta = "mi_clavesita_secreta"
         mensaje_a_encriptar = ""
 
         self.assertRaises(motor_encripcion.EmptyEncryptMessage,motor_encripcion.encriptar(clave_secreta,mensaje_a_encriptar))
@@ -86,7 +86,7 @@ class EncriptionTests(unittest.TestCase):
     def test_desencriptar_mensaje_sin_encriptar(self):
     
         mensaje_a_desencriptar = "hola lola"
-        clave_secreta = "mi_clave_secreta"
+        clave_secreta = "hola_clave"
 
         self.assertRaises(motor_encripcion.MessageIsNotEncrypted, motor_encripcion.desencriptar(clave_secreta,mensaje_a_desencriptar))
     
@@ -136,7 +136,7 @@ class EncriptionTests(unittest.TestCase):
     def test_encriptacion_emoji(self):
     
         mensaje_encriptado = "2dvCekIBLhSfQazHulGDQY58c1y95i5KzxrwXoVXAUaBy+B0WBIZ0DZFHTCv9SnHv1mf5ql8r8F20/NZXQpwR+c8rjl/PKFgUuC/y9kKhJ8"
-        clave_secreta = "mi_clave_secreta"
+        clave_secreta = "josue_don_juan"
 
         mensaje_original = "🥰​🥰​🥰​🥰​🥰​👻"
         mensaje_desencriptado = motor_encripcion.desencriptar(clave_secreta,mensaje_encriptado)
@@ -147,7 +147,7 @@ class EncriptionTests(unittest.TestCase):
     def test_encriptacion_simbolos_invalidos(self):
     
         mensaje_a_encriptar = "ʥʥʥʥʥʥʥʥ"
-        clave_secreta = "mi_clave_secreta"
+        clave_secreta = "pipe_jarra"
 
         mensaje_encriptado_esperado = "jDbi3COvkQdHQEnWHZpPFR+0UwjSh9ov7EpE/TyZ/KxMXrcO+WKfm5pHmYQJ5hMp"
         mensaje_encriptado = motor_encripcion.encriptar(clave_secreta,mensaje_a_encriptar)
@@ -158,7 +158,7 @@ class EncriptionTests(unittest.TestCase):
     def test_encriptacion_numeros(self):
     
         mensaje_a_desencriptar = "SmClIKLgJhl0x1m/iovsvNFsjl00iof6LsBtb8qQaAJvdN5seAZ0N4M+MCcPQ6XI"
-        clave_secreta = "mi_clave_secreta"
+        clave_secreta = "boliche20*"
 
         mensaje_original = "00000000000"
         mensaje_desencriptado = motor_encripcion.desencriptar(clave_secreta,mensaje_a_desencriptar)
@@ -170,7 +170,7 @@ class EncriptionTests(unittest.TestCase):
     def test_encriptacion_con_simbolos(self):
 
         mensaje_a_encriptar = "ÑonguiRombiAstrombißßß"
-        clave_encriptacion = "mi_clave_secreta"
+        clave_encriptacion = "astro_mango"
 
         mensaje_encriptado_esperado = "mnTRNBAzsl4pXWQLi5M2iBZsD2HiyR51CfEgmiwNOuBC4AW6g7P0/laQrZajBpDjbR4kdhnK7fu1AWAwPTfwzA"
         mensaje_encriptado = motor_encripcion.encriptar(clave_encriptacion,mensaje_a_encriptar)
@@ -181,14 +181,23 @@ class EncriptionTests(unittest.TestCase):
     def test_encriptar_mensaje_encriptado(self):
 
         mensaje_a_encriptar = 'UB9bS7pE1fkbqzjsrPrVSID8qynXGZS3g23ImLvKsIi87PEAJKi4et9n+SPWjg70'
-        clave_encriptacion = 'mi_clave_secreta'
+        clave_encriptacion = 'mezclar_bien'
 
         mensaje_encriptado_esperado = 'gNLOIT1dUEm+2M1wAevcC9jf13Vb6/tm5ydXBwMGpxKwOP2HUYsGqTdhtGENsWX6RdZrmnee6DIhkI+ZlTriX91TFyme4QG80qXM5ixAtLUknUCQ7mQo1Z0TeHtPRQBn'
         mensaje_encriptado = motor_encripcion.encriptar(clave_encriptacion, mensaje_a_encriptar)
 
         self.assertEqual(mensaje_encriptado_esperado, mensaje_encriptado)
 
+    #Caso excepcional #6
+    def test_encriptar_mensaje_de_un_caracter(self):
 
+        mensaje_a_encriptar = 'a'
+        clave_encriptacion = 'tomasinho'
+
+        mensaje_encriptado_esperado = 'j2txUK57JvCfAncz20Bxe12z/5n5Yh43cA+iLQqBfigDcSCiYL5cYP1apx6gp+UL'
+        mensaje_encriptado = motor_encripcion.encriptar(clave_encriptacion, mensaje_a_encriptar)
+
+        self.assertEqual(mensaje_encriptado_esperado, mensaje_encriptado)
 
 if __name__ == '__main__':
     unittest.main()
