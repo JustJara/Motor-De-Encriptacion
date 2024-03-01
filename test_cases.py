@@ -11,7 +11,7 @@ class EncriptionTests(unittest.TestCase):
 
         mensaje_encriptado = motor_encripcion.encriptar(clave_secreta,mensaje_a_encriptar)
 
-        self.asserEqual(mensaje_encriptado_esperado,mensaje_encriptado)
+        self.assertEqual(mensaje_encriptado_esperado,mensaje_encriptado)
 
     def test_encriptacion2(self):
 
@@ -22,7 +22,7 @@ class EncriptionTests(unittest.TestCase):
 
         mensaje_encriptado = motor_encripcion.encriptar(clave_secreta,mensaje_a_encriptar)
 
-        self.asserEqual(mensaje_encriptado_esperado,mensaje_encriptado)
+        self.assertEqual(mensaje_encriptado_esperado,mensaje_encriptado)
 
     def test_encriptacion3(self):
 
@@ -32,7 +32,7 @@ class EncriptionTests(unittest.TestCase):
 
         mensaje_encriptado = motor_encripcion.encriptar(clave_secreta,mensaje_a_encriptar)
 
-        self.asserEqual(mensaje_encriptado_esperado,mensaje_encriptado)
+        self.assertEqual(mensaje_encriptado_esperado,mensaje_encriptado)
 
     def test_desencriptacion1(self):
 
