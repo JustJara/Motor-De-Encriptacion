@@ -1,5 +1,5 @@
 import unittest
-import encriptation_algorithm as encriptation_algorithm
+import encriptation_algorithm.encriptation_algorithm as encriptation_algorithm
 
 '''
 This class contains the test cases for the encryption and decription of the messages

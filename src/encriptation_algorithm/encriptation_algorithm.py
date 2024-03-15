@@ -1,3 +1,5 @@
+import Crypto as crypto
+
 class EmptyEncryptMessage(Exception):
     pass
 
