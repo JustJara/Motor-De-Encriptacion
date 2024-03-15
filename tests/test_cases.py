@@ -174,10 +174,10 @@ class encryptionTests(unittest.TestCase):
     def test_encryption_with_symbols(self):
 
         unencrypted_message = "ÑonguiRombiAstrombißßß"
-        clave_encriptacion = "astro_mango"
+        secret_key = "astro_mango"
 
         expected_encrypted_message = "mnTRNBAzsl4pXWQLi5M2iBZsD2HiyR51CfEgmiwNOuBC4AW6g7P0/laQrZajBpDjbR4kdhnK7fu1AWAwPTfwzA"
-        encrypted_message = encriptation_algorithm.encrypt(clave_encriptacion,unencrypted_message)
+        encrypted_message = encriptation_algorithm.encrypt(secret_key,unencrypted_message)
 
         self.assertEqual(expected_encrypted_message,encrypted_message)
 
@@ -185,10 +185,10 @@ class encryptionTests(unittest.TestCase):
     def test_encrypt_encrypted_message(self):
 
         unencrypted_message = 'UB9bS7pE1fkbqzjsrPrVSID8qynXGZS3g23ImLvKsIi87PEAJKi4et9n+SPWjg70'
-        clave_encriptacion = 'mezclar_bien'
+        secret_key = 'mezclar_bien'
 
         expected_encrypted_message = 'gNLOIT1dUEm+2M1wAevcC9jf13Vb6/tm5ydXBwMGpxKwOP2HUYsGqTdhtGENsWX6RdZrmnee6DIhkI+ZlTriX91TFyme4QG80qXM5ixAtLUknUCQ7mQo1Z0TeHtPRQBn'
-        encrypted_message = encriptation_algorithm.encrypt(clave_encriptacion, unencrypted_message)
+        encrypted_message = encriptation_algorithm.encrypt(secret_key, unencrypted_message)
 
         self.assertEqual(expected_encrypted_message, encrypted_message)
 
@@ -196,10 +196,10 @@ class encryptionTests(unittest.TestCase):
     def test_single_letter_message_encryption(self):
 
         unencrypted_message = 'a'
-        clave_encriptacion = 'tomasinho'
+        secret_key = 'tomasinho'
 
         expected_encrypted_message = 'j2txUK57JvCfAncz20Bxe12z/5n5Yh43cA+iLQqBfigDcSCiYL5cYP1apx6gp+UL'
-        encrypted_message = encriptation_algorithm.encrypt(clave_encriptacion, unencrypted_message)
+        encrypted_message = encriptation_algorithm.encrypt(secret_key, unencrypted_message)
 
         self.assertEqual(expected_encrypted_message, encrypted_message)
 
