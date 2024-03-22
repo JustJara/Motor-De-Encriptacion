@@ -5,8 +5,6 @@ import re
 
 sys.path.append('src')
 
-from tests import test_cases
-
 # Importamos la la libreria de encriptacion PyCryptodome
 
 
@@ -22,15 +20,22 @@ class InvalidPublicKey(Exception):
 
 # Definimos la clase para capturar la excepcion de un mensaje no encriptado
 class InvalidPublicKey(Exception):
-    pass
+    def __init__(self):
+        super().__init__('La clave solo puede contener valores númericos separados por coma')
 
 # Definimos la clase para capturar la excepcion de una clave secreta vacia
-class EmptySecretKey(Exception):
-    pass
+class EmptyPublicKey(Exception):
+    def __init__(self):
+        super().__init__('La clave no puede estar vacía')
+
+class NonPrimeNumber(Exception):
+    def __init__(self):
+        super().__init__('Los números ingresados no son primos')
 
 # Definimos la clase para capturar la excepcion de un mensaje vacio
 class EmptyInputValuesError(Exception):
-    pass
+    def __init__(self):
+        super().__init__('No puedes dejar espacios vacíos')
 
 # Definimos el metodo para encriptar un mensaje
 
@@ -168,14 +173,24 @@ class EncriptationEngine:
     '''Se itera sobre cada letra del mensaje codificado y se decodifica con ASCII para convertirlo a cadena de texto
     y después se desencripta con el método message_decrypter'''
     def message_decoder(self,encoded_message, public_key,prime_number1,prime_number2) -> str:
-        
-        decoded_message : str = ''
-        private_key = self.private_key_generator(public_key, (prime_number1 - 1) * (prime_number2 - 1))
-        RSA_module = prime_number1 * prime_number2
-        for letter in encoded_message:
-            decoded_message += chr(self.message_decrypter(letter,private_key,RSA_module))
 
-        return decoded_message
+        if prime_number1 == None or prime_number2 == None:
+            raise EmptyInputValuesError
+        if encoded_message == '':
+            raise SyntaxError('El mensaje no puede estar vacío')
+
+        if public_key == None:
+            raise EmptyPublicKey
+        else:
+            
+            
+            decoded_message : str = ''
+            private_key = self.private_key_generator(public_key, (prime_number1 - 1) * (prime_number2 - 1))
+            RSA_module = prime_number1 * prime_number2
+            for letter in encoded_message:
+                decoded_message += chr(self.message_decrypter(letter,private_key,RSA_module))
+
+            return decoded_message
     
 
     def secret_key_format_validator(self,cadena) -> bool:
@@ -186,7 +201,7 @@ class EncriptationEngine:
         if re.match(patron, cadena):
             return True
         else:
-            return False
+            raise InvalidPublicKey
 
     def message_encrypter_with_inputs(self, unencrypted_letter:int, public_key, RSA_module) -> int:
 
@@ -210,6 +225,12 @@ class EncriptationEngine:
         #Valida si el mensaje no está vacío y lanza una excepción si lo está
         if message == '':
             raise EmptyEncryptMessage
+        if prime_number1 == None or prime_number2 == None:
+            raise EmptyInputValuesError
+        if public_key == None:
+            raise EmptyPublicKey
+        if self.is_prime(prime_number1)== False and self.is_prime(prime_number2) == False:
+            raise NonPrimeNumber
         else:
             RSA_module = prime_number1 * prime_number2
             encoded_message : list = []
@@ -217,5 +238,19 @@ class EncriptationEngine:
                 encoded_message.append(self.message_encrypter_with_inputs(ord(letter),public_key,RSA_module))
 
             return encoded_message
+        
+    def is_prime(self,prime_number):
+        if prime_number <= 1:
+            return False
+        if prime_number <= 3:
+            return True
+        if prime_number % 2 == 0 or prime_number % 3 == 0:
+            return False
+        i = 5
+        while i * i <= prime_number:
+            if prime_number % i == 0 or prime_number % (i + 2) == 0:
+                return False
+            i += 6
+        return True
     
     

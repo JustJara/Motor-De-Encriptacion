@@ -1,5 +1,9 @@
 import unittest
-import encriptation_algorithm.encriptation_algorithm as encriptation_algorithm
+import sys
+
+sys.path.append('src')
+
+from encriptation_algorithm.encriptation_algorithm import *
 
 '''
 This class contains the test cases for the encryption and decription of the messages
@@ -9,199 +13,241 @@ class encryptionTests(unittest.TestCase):
     def test_encryption1(self):
         
 
-        public_key = "mi_clave_secreta"
-        expected_encrypted_message = "5iuJeaccc+WN2Yq1GFlMp2APTxMGXSy89kAXYbfFhN0Oj9tkFLW+KxkUNalmJQIKNUsHZzJjVrb9HUO/FyVgPo2SxQXkIOZ8xgxHnOVzN2s"
-        unencripted_message = "probando la encriptación de mi programa"
+        public_key : int= 5
+        prime_number1 :int= 29
+        prime_number2 :int= 127
+        expected_encrypted_message = [17, 2212, 225, 2302, 1219, 257, 2302, 2478, 744, 55, 418, 744, 257, 2212, 55, 1552, 2095]
+        unencripted_message = 'hay un mercenario'
 
-        encrypted_message = encriptation_algorithm.encrypt(secret_key,unencripted_message)
+        encrypted_message = EncriptationEngine().message_encoder_with_inputs(unencripted_message,prime_number1,prime_number2,public_key)
 
         self.assertEqual(expected_encrypted_message,encrypted_message)
 
     def test_encryption2(self):
 
+        public_key : int= 5
+        prime_number1 :int= 97
+        prime_number2 :int= 223
+        expected_encrypted_message = [26, 10920, 13029, 6305, 4751, 13833, 3366, 10920, 21167, 8590, 4751, 20153, 10920, 4751, 20153, 10920, 8156, 4751, 18410, 6481, 3366, 8590, 4751, 10331, 12580, 3366, 10920]
+        unencripted_message = 'hola profe no nos tire duro'
 
-        secret_key = "mi_clave_secreta"
-        expected_encrypted_message = "4o1SGTAXo5lDwVNG4D2WwhiZ4ltKAF4/QehptwKHXJbWmb+J3TuY8ed5sTesD+CaXxH/vcgdxRMnU3J+MLlWUw"
-        unencripted_message = "segundo caso de prueba"
-
-        encrypted_message = encriptation_algorithm.encrypt(secret_key,unencripted_message)
+        encrypted_message = EncriptationEngine().message_encoder_with_inputs(unencripted_message,prime_number1,prime_number2,public_key)
 
         self.assertEqual(expected_encrypted_message,encrypted_message)
+        
 
     def test_encryption3(self):
 
-        secret_key = "mi_clave_secreta"
-        expected_encrypted_message = "N5C01g6oe/D5GX8s+Ckna3kGppSGXMNFkmVwt9eAUFGnvkApH8FT5k+J6W/HD2rP/MqSz30bz5evGMobStZEyg"
-        unencrypted_message = "tercer caso de prueba encriptado"
+        public_key : int= 7
+        prime_number1 :int= 97
+        prime_number2 :int= 151
+        expected_encrypted_message = [6679, 12377, 8066, 13620, 8818, 183, 6679, 3407, 8818, 14215, 8342, 14215, 13674, 183, 1463, 7109, 7694, 1953, 8066, 7830, 183, 13926, 12377, 8342, 1747, 8342, 3488, 8066, 7830]
+        unencripted_message = 'profe piedad, muchos trabajos'
 
-        encrypted_message = encriptation_algorithm.encrypt(secret_key,unencrypted_message)
+        encrypted_message = EncriptationEngine().message_encoder_with_inputs(unencripted_message,prime_number1,prime_number2,public_key)
 
         self.assertEqual(expected_encrypted_message,encrypted_message)
+        
 
     def test_decryption1(self):
 
-        secret_key = "mi_clave_secreta"
-        original_message = "Hola, que tenga un buen dia"
-        encrypted_message = "P8SHQjnqN/eLNJvV4yspRmzgr0eRgq2spyr4Cw2GIc7gTJxNERmu9uBjmJNFmW2dvGPycnlZpG5DeRtzwQgqxw"
+        public_key : int= 7
+        prime_number1 :int= 97
+        prime_number2 :int= 151
+        encrypted_message = [6679, 12377, 8066, 13620, 8818, 183, 6679, 3407, 8818, 14215, 8342, 14215, 13674, 183, 1463, 7109, 7694, 1953, 8066, 7830, 183, 13926, 12377, 8342, 1747, 8342, 3488, 8066, 7830]
+        expected_message = 'profe piedad, muchos trabajos'
 
-        decrypted_message = encriptation_algorithm.decrypt(secret_key,encrypted_message)
+        decrypted_message = EncriptationEngine().message_decoder(encrypted_message,public_key,prime_number1,prime_number2)
 
-        self.assertEqual(original_message,decrypted_message)
+        self.assertEqual(decrypted_message,expected_message)
+
 
     def test_decryption2(self):
 
-        secret_key = "mi_clave_secreta"
-        original_message = "No pienses el pasado, se feliz"
-        encrypted_message = "36mZNydKt8hwki6vlntItrtAE/wVv97QWpf92Na2Kj+btPlCo965yzHz4w8qi7UTjJkxqqofkOMnSsdxAx5VFw"
+        public_key : int= 5
+        prime_number1 :int= 97
+        prime_number2 :int= 223
+        encrypted_message = [26, 10920, 13029, 6305, 4751, 13833, 3366, 10920, 21167, 8590, 4751, 20153, 10920, 4751, 20153, 10920, 8156, 4751, 18410, 6481, 3366, 8590, 4751, 10331, 12580, 3366, 10920]
+        expected_message = 'hola profe no nos tire duro'
 
-        decrypted_message = encriptation_algorithm.decrypt(secret_key,encrypted_message)
+        decrypted_message = EncriptationEngine().message_decoder(encrypted_message,public_key,prime_number1,prime_number2)
 
-        self.assertEqual(original_message,decrypted_message)
+        self.assertEqual(decrypted_message,expected_message)
 
     def test_decryption3(self):
 
-        secret_key = "mi_clavesota_belica"
-        original_message = "Piensa, luego existe"
-        encrypted_message = "jRGI7mP54JIf0FO3iWm+dj7VnmqVgk35LEuS9uw0VbeBCNTskhgC8E6jvdHRNb0QQs8HAwL2fMsm2i+z1N494Q"
+        public_key : int= 5
+        prime_number1 :int= 29
+        prime_number2 :int= 127
+        encrypted_message = [17, 2212, 225, 2302, 1219, 257, 2302, 2478, 744, 55, 418, 744, 257, 2212, 55, 1552, 2095]
+        expected_message = 'hay un mercenario'
 
-        decrypted_message = encriptation_algorithm.decrypt(secret_key,encrypted_message)
+        decrypted_message = EncriptationEngine().message_decoder(encrypted_message,public_key,prime_number1,prime_number2)
 
-        self.assertEqual(original_message,decrypted_message)
+        self.assertEqual(decrypted_message,expected_message)
 
     #Error Case #1
     def test_message_empty_to_encrypt(self):
 
-        secret_key = "mi_clavesita_secreta"
-        unencrypted_message = ""
+        public_key : int= 5
+        prime_number1 :int= 29
+        prime_number2 :int= 127
 
-        self.assertRaises(encriptation_algorithm.EmptyEncryptMessage,encriptation_algorithm.encrypt(secret_key,unencrypted_message))
+        unencrypted_message = ''
+
+        self.assertRaises(EmptyEncryptMessage,EncriptationEngine().message_encoder_with_inputs,unencrypted_message,prime_number1,prime_number2,public_key)
 
     #Error Case #2
-    def test_different_secretkey_to_encrypt(self):
+    def test_empty_public_key_to_encrypt(self):
 
-        encrypted_message = "jRGI7mP54JIf0FO3iWm+dj7VnmqVgk35LEuS9uw0VbeBCNTskhgC8E6jvdHRNb0QQs8HAwL2fMsm2i+z1N494Q"
+        public_key : int = None
+        prime_number1 :int= 29
+        prime_number2 :int= 127
 
-        secret_key = "secret_key"
+        unencrypted_message = 'Son las 5 AM y no recuerdo nada'
 
-
-        self.assertRaises(encriptation_algorithm.InvalidSecretKey,encriptation_algorithm.decrypt(secret_key,encrypted_message))
+        self.assertRaises(EmptyPublicKey,EncriptationEngine().message_encoder_with_inputs,unencrypted_message,prime_number1,prime_number2,public_key)
     
     #Error Case #3
-    def test_decrypt_message_unencrypted(self):
+    def test_empty_public_ket_to_decrypt(self):
     
-        message_to_decrypt = "hola lola"
-        secret_key = "hola_clave"
+        public_key : int = None
+        prime_number1 :int= 181
+        prime_number2 :int= 83
 
-        self.assertRaises(encriptation_algorithm.MessageIsNotEncrypted, encriptation_algorithm.decrypt(secret_key,message_to_decrypt))
+        encrypted_message = [5312, 9110, 9947, 4102, 2310, 5164, 14643, 4102, 3743, 4102, 4236, 272, 4102, 7228, 4102, 9947, 9110, 4102, 14562, 3400, 12460, 9256, 3400, 14562, 7838, 9110, 4102, 9947, 5164, 7838, 5164]
+
+        self.assertRaises(EmptyPublicKey,EncriptationEngine().message_decoder,encrypted_message,public_key,prime_number1,prime_number2)
     
     #Error Case #4
     def test_empty_secret_key(self):
     
-        message_to_decrypt = "jRGI7mP54JIf0FO3iWm+dj7VnmqVgk35LEuS9uw0VbeBCNTskhgC8E6jvdHRNb0QQs8HAwL2fMsm2i+z1N494Q"
-        secret_key = ""
+        public_key : int= 5
+        prime_number1 :int= 29
+        prime_number2 :int= 127
 
-        self.assertRaises(encriptation_algorithm.EmptySecretKey,encriptation_algorithm.decrypt(secret_key,message_to_decrypt))
+        encrypted_message = ''
+
+        self.assertRaises(SyntaxError,EncriptationEngine().message_decoder,encrypted_message,public_key,prime_number1,prime_number2)
 
     #Error Case #5
-    def test_encrypt_with_a_symbol_secretkey(self):
+    def test_encrypt_with_invalid_public_key(self):
 
-        unencrypted_message = "Este mensaje será encriptado"
-        secret_key = "ñññ%%/;;"
+        public_key = '17181,83'
 
-        self.assertRaises(encriptation_algorithm.InvalidSecretKey,encriptation_algorithm.encrypt(secret_key,unencrypted_message))
+        self.assertRaises(InvalidPublicKey,EncriptationEngine().secret_key_format_validator,public_key)
 
     #Error Case #6
-    def test_encryption_with_invalid_secretkey_length(self):
+    def test_encrypt_without_prime_number(self):
 
-        unencrypted_message = "El mensaje no se podrá encriptar por la clave de longitud inválida"
-        secret_key = "esta_clave_no_sera_valida_para_encriptar"
+        public_key : int= 5
+        prime_number1 :int= None
+        prime_number2 :int= 127
 
-        self.assertRaises(encriptation_algorithm.InvalidSecretKey,encriptation_algorithm.encrypt(secret_key,unencrypted_message))
+        unencrypted_message = 'Ayuda estoy perdiendo la cordura'
+
+        self.assertRaises(EmptyInputValuesError,EncriptationEngine().message_encoder_with_inputs,unencrypted_message,prime_number1,prime_number2,public_key)
 
     #Error Case #7
-    def test_empty_input_data(self):
+    def test_decrypt_without_prime_number(self):
 
-        unencrypted_message = ""
-        secret_key = ""
+        public_key : int= 5
+        prime_number1 :int= 173
+        prime_number2 :int= None
 
-        self.assertRaises(encriptation_algorithm.EmptyInputValuesError,encriptation_algorithm.encrypt(unencrypted_message,secret_key))
+        encrypted_message = [27546, 16233, 36387, 35328, 38571, 38450, 27337, 20975, 28239, 5622, 16233, 38450, 32084, 27337, 6505, 35328, 990, 27337, 36777, 35328, 5622, 38450, 8957, 38571, 38450, 37734, 5622, 6505, 35328, 36387, 6505, 38571]
+
+        self.assertRaises(EmptyInputValuesError,EncriptationEngine().message_decoder,encrypted_message,public_key,prime_number1,prime_number2)
 
     #Error Case #8
         
-    def test_encryption_without_secretkey(self):
+    def test_encryption_without_prime_numbers(self):
 
         unencrypted_message = "Cuando una fuerza actua sobre un objeto este se pone en movimiento"
-        secret_key=""
+        public_key= 17
+        prime_number1 = 60
+        prime_number2 = 20
 
-        self.assertRaises(encriptation_algorithm.EmptySecretKey,encriptation_algorithm.encrypt(unencrypted_message,secret_key))
+        self.assertRaises(NonPrimeNumber,EncriptationEngine().message_encoder_with_inputs,unencrypted_message,prime_number1,prime_number2,public_key)
     
 
     #Exceptional Case #1
-    def test_encryption_emoji(self):
+    def test_encryption_numbers(self):
     
-        encrypted_message = "2dvCekIBLhSfQazHulGDQY58c1y95i5KzxrwXoVXAUaBy+B0WBIZ0DZFHTCv9SnHv1mf5ql8r8F20/NZXQpwR+c8rjl/PKFgUuC/y9kKhJ8"
-        secret_key = "josue_don_juan"
+        public_key : int= 5
+        prime_number1 :int= 157
+        prime_number2 :int= 79
+        expected_encrypted_message = [9327, 6415, 11000, 11000, 1367, 3542, 1367, 2470, 1367, 3542, 2470, 5964]
+        unencripted_message = '123385848546'
 
-        original_message = "🥰​🥰​🥰​🥰​🥰​👻"
-        decrypted_message = encriptation_algorithm.decrypt(secret_key,encrypted_message)
+        encrypted_message = EncriptationEngine().message_encoder_with_inputs(unencripted_message,prime_number1,prime_number2,public_key)
 
-        self.assertEqual(original_message,decrypted_message)
+        self.assertEqual(expected_encrypted_message,encrypted_message)
 
     #Exceptional Case #2
-    def test_encrytion_with_invalid_symbols(self):
+    def test_encrytion_with_single_letter(self):
     
-        unencrypted_message = "ʥʥʥʥʥʥʥʥ"
-        secret_key = "pipe_jarra"
+        public_key : int= 5
+        prime_number1 :int= 37
+        prime_number2 :int= 3
+        expected_encrypted_message = [82]
+        unencripted_message = 'a'
 
-        expected_encrypted_message = "jDbi3COvkQdHQEnWHZpPFR+0UwjSh9ov7EpE/TyZ/KxMXrcO+WKfm5pHmYQJ5hMp"
-        encrypted_message = encriptation_algorithm.encrypt(secret_key,unencrypted_message)
+        encrypted_message = EncriptationEngine().message_encoder_with_inputs(unencripted_message,prime_number1,prime_number2,public_key)
 
         self.assertEqual(expected_encrypted_message,encrypted_message)
 
     #Exceptional Case #3
-    def test_number_encryption(self):
+    def test_especial_characters_encryption(self):
     
-        message_to_decrypt = "SmClIKLgJhl0x1m/iovsvNFsjl00iof6LsBtb8qQaAJvdN5seAZ0N4M+MCcPQ6XI"
-        secret_key = "boliche20*"
+        public_key : int= 7
+        prime_number1 :int= 151
+        prime_number2 :int= 59
+        expected_encrypted_message = [2133, 5290, 3193, 8805, 4496, 3928, 5290, 2133, 6581, 4496]
+        unencripted_message = '@%$*#&%@(#'
 
-        original_message = "00000000000"
-        decrypted_message = encriptation_algorithm.decrypt(secret_key,message_to_decrypt)
-
-        self.assertEqual(original_message,decrypted_message)
-
-
-    #Exceptional Case #4
-    def test_encryption_with_symbols(self):
-
-        unencrypted_message = "ÑonguiRombiAstrombißßß"
-        secret_key = "astro_mango"
-
-        expected_encrypted_message = "mnTRNBAzsl4pXWQLi5M2iBZsD2HiyR51CfEgmiwNOuBC4AW6g7P0/laQrZajBpDjbR4kdhnK7fu1AWAwPTfwzA"
-        encrypted_message = encriptation_algorithm.encrypt(secret_key,unencrypted_message)
+        encrypted_message = EncriptationEngine().message_encoder_with_inputs(unencripted_message,prime_number1,prime_number2,public_key)
 
         self.assertEqual(expected_encrypted_message,encrypted_message)
 
+    #Exceptional Case #4
+    def test_decryption_of_numbers(self):
+
+        public_key : int= 5
+        prime_number1 :int= 157
+        prime_number2 :int= 79
+        expected_unencrypted_message = '123385848546'
+        encrypted_message = [9327, 6415, 11000, 11000, 1367, 3542, 1367, 2470, 1367, 3542, 2470, 5964]
+
+        encrypted_message = EncriptationEngine().message_decoder(encrypted_message,public_key,prime_number1,prime_number2)
+
+        self.assertEqual(expected_unencrypted_message,encrypted_message)
+
     #Exceptional Case #5
-    def test_encrypt_encrypted_message(self):
+    def test_decryp_single_letter(self):
 
-        unencrypted_message = 'UB9bS7pE1fkbqzjsrPrVSID8qynXGZS3g23ImLvKsIi87PEAJKi4et9n+SPWjg70'
-        secret_key = 'mezclar_bien'
+        public_key : int= 5
+        prime_number1 :int= 37
+        prime_number2 :int= 3
+        expected_unencrypted_message = 'a'
+        encrypted_message = [82]
 
-        expected_encrypted_message = 'gNLOIT1dUEm+2M1wAevcC9jf13Vb6/tm5ydXBwMGpxKwOP2HUYsGqTdhtGENsWX6RdZrmnee6DIhkI+ZlTriX91TFyme4QG80qXM5ixAtLUknUCQ7mQo1Z0TeHtPRQBn'
-        encrypted_message = encriptation_algorithm.encrypt(secret_key, unencrypted_message)
+        encrypted_message = EncriptationEngine().message_decoder(encrypted_message,public_key,prime_number1,prime_number2)
 
-        self.assertEqual(expected_encrypted_message, encrypted_message)
+        self.assertEqual(expected_unencrypted_message,encrypted_message)
 
     #Exceptional Case #6
-    def test_single_letter_message_encryption(self):
+    def test_especial_characters_decryption(self):
 
-        unencrypted_message = 'a'
-        secret_key = 'tomasinho'
+        public_key : int= 7
+        prime_number1 :int= 151
+        prime_number2 :int= 59
+        encrypted_message = [2133, 5290, 3193, 8805, 4496, 3928, 5290, 2133, 6581, 4496]
+        expected_unencrypted_message = '@%$*#&%@(#'
 
-        expected_encrypted_message = 'j2txUK57JvCfAncz20Bxe12z/5n5Yh43cA+iLQqBfigDcSCiYL5cYP1apx6gp+UL'
-        encrypted_message = encriptation_algorithm.encrypt(secret_key, unencrypted_message)
+        encrypted_message = EncriptationEngine().message_decoder(encrypted_message,public_key,prime_number1,prime_number2)
 
-        self.assertEqual(expected_encrypted_message, encrypted_message)
+        self.assertEqual(expected_unencrypted_message,encrypted_message)
 
 if __name__ == '__main__':
     unittest.main()

@@ -35,9 +35,8 @@ class ConsoleUI:
         
         encrypted_message : list = eval(input('Ingrese el mensaje a desencriptar: '))
         secret_key = (input('Ingrese la clave pública utilizada para encriptar el mensaje: '))
-        if secret_key == '':
-            raise encriptation_algorithm.EmptySecretKey('La clave pública no puede estar vacía')
-        elif self.encriptation_engine.secret_key_format_validator(secret_key) == False:
+
+        if self.encriptation_engine.secret_key_format_validator(secret_key) == False:
             raise encriptation_algorithm.InvalidPublicKey('La clave pública debe ser una cadena de texto con el formato especificado')
         else:
             public_key, prime_number1, primer_number2 = secret_key.split(',')
