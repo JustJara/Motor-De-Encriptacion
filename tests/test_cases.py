@@ -9,7 +9,7 @@ class encryptionTests(unittest.TestCase):
     def test_encryption1(self):
         
 
-        secret_key = "mi_clave_secreta"
+        public_key = "mi_clave_secreta"
         expected_encrypted_message = "5iuJeaccc+WN2Yq1GFlMp2APTxMGXSy89kAXYbfFhN0Oj9tkFLW+KxkUNalmJQIKNUsHZzJjVrb9HUO/FyVgPo2SxQXkIOZ8xgxHnOVzN2s"
         unencripted_message = "probando la encriptación de mi programa"
 
