@@ -523,7 +523,7 @@ class EncriptationEngine:
             
             return encrypted_message
 
-    def message_encoder_with_inputs(self,message: str, prime_number1, prime_number2,public_key) -> list[int]:
+    def encode_and_encryp_message_with_inputs(self,message: str, prime_number1, prime_number2,public_key) -> list[int]:
 
         '''
         Encodes and encrypts the message entered by the user with the public key and RSA module given by the user
