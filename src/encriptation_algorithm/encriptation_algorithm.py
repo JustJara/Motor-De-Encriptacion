@@ -28,7 +28,10 @@ class EmptyEncryptMessage(Exception):
         Para lanzar esta excepción, el mensaje ingresado debe estar vacío
 
         '''
-        super().__init__('El mensaje ingresado no puede estar vacío')
+        self.message = 'El mensaje ingresado no puede estar vacío'
+
+    def __str__(self) -> str:
+        return (self.message)
 
 class InvalidPublicKey(Exception):
     '''
@@ -47,7 +50,8 @@ class InvalidPublicKey(Exception):
         Para lanzar esta excepción, la clave pública ingresada debe ser inválida
 
         '''
-        super().__init__('La clave solo puede contener valores númericos separados por coma')
+        super().__init__()
+        self.message = 'La clave solo puede contener valores númericos separados por coma'
 
 class EmptyPublicKey(Exception):
     '''
@@ -66,7 +70,8 @@ class EmptyPublicKey(Exception):
         Para lanzar esta excepción, la clave pública ingresada debe estar vacía
 
         '''
-        super().__init__('La clave no puede estar vacía')
+        super().__init__()
+        self.message = 'La clave no puede estar vacía'
 
 class NonPrimeNumber(Exception):
     '''
@@ -82,7 +87,8 @@ class NonPrimeNumber(Exception):
         
         Para lanzar esta excepción, los números ingresados no deben ser primos
         '''
-        super().__init__('Los números ingresados no son primos')
+        super().__init__()
+        self.message = 'Los números ingresados no son primos'
 
 class EmptyInputValuesError(Exception):
     '''
@@ -100,7 +106,8 @@ class EmptyInputValuesError(Exception):
         Para lanzar esta excepción, un valor ingresado debe estar vacío
 
         '''
-        super().__init__('No puedes dejar espacios vacíos')
+        super().__init__()
+        self.message = 'No puedes dejar espacios vacíos'
 
 
 class EncriptationEngine:
