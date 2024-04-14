@@ -14,7 +14,7 @@ class ConsoleUI:
 
         message = input('Ingrese el mensaje a encriptar: ')
 
-        encrypted_message = self.encriptation_engine.message_encoder(message)
+        encrypted_message = self.encriptation_engine.encode_and_encrypt_message(message)
     
         print(f'Mensaje encriptado: {encrypted_message}')
 
@@ -43,7 +43,7 @@ class ConsoleUI:
             public_key = int(public_key.strip())
             prime_number1 = int(prime_number1.strip())
             prime_number2 = int(primer_number2.strip())
-            decrypted_message = self.encriptation_engine.message_decoder(encrypted_message, public_key,prime_number1,prime_number2)
+            decrypted_message = self.encriptation_engine.decode_and_decrypt_message(encrypted_message, public_key,prime_number1,prime_number2)
             print(f'Mensaje desencriptado: {decrypted_message}')
 
 
@@ -78,8 +78,8 @@ class ConsoleUI:
                 option2 = int(input('Opción: '))
                 if option2 == 1:
                     print('----------------')
-                    self.encriptation_engine.prime_set_filler()
-                    secret_key = self.encriptation_engine.public_and_private_key_generator()
+                    self.encriptation_engine.fill_prime_set()
+                    secret_key = self.encriptation_engine.generate_public_and_private_key()
                     self.message_encrypter()
                     print(f'La llave pública es: {secret_key}')
                 elif option2 == 2:

@@ -57,7 +57,7 @@ class encryptionTests(unittest.TestCase):
         encrypted_message = [6679, 12377, 8066, 13620, 8818, 183, 6679, 3407, 8818, 14215, 8342, 14215, 13674, 183, 1463, 7109, 7694, 1953, 8066, 7830, 183, 13926, 12377, 8342, 1747, 8342, 3488, 8066, 7830]
         expected_message = 'profe piedad, muchos trabajos'
 
-        decrypted_message = EncriptationEngine().message_decoder(encrypted_message,public_key,prime_number1,prime_number2)
+        decrypted_message = EncriptationEngine().decode_and_decrypt_message(encrypted_message,public_key,prime_number1,prime_number2)
 
         self.assertEqual(decrypted_message,expected_message)
 
@@ -70,7 +70,7 @@ class encryptionTests(unittest.TestCase):
         encrypted_message = [26, 10920, 13029, 6305, 4751, 13833, 3366, 10920, 21167, 8590, 4751, 20153, 10920, 4751, 20153, 10920, 8156, 4751, 18410, 6481, 3366, 8590, 4751, 10331, 12580, 3366, 10920]
         expected_message = 'hola profe no nos tire duro'
 
-        decrypted_message = EncriptationEngine().message_decoder(encrypted_message,public_key,prime_number1,prime_number2)
+        decrypted_message = EncriptationEngine().decode_and_decrypt_message(encrypted_message,public_key,prime_number1,prime_number2)
 
         self.assertEqual(decrypted_message,expected_message)
 
@@ -82,7 +82,7 @@ class encryptionTests(unittest.TestCase):
         encrypted_message = [17, 2212, 225, 2302, 1219, 257, 2302, 2478, 744, 55, 418, 744, 257, 2212, 55, 1552, 2095]
         expected_message = 'hay un mercenario'
 
-        decrypted_message = EncriptationEngine().message_decoder(encrypted_message,public_key,prime_number1,prime_number2)
+        decrypted_message = EncriptationEngine().decode_and_decrypt_message(encrypted_message,public_key,prime_number1,prime_number2)
 
         self.assertEqual(decrypted_message,expected_message)
 
@@ -117,7 +117,7 @@ class encryptionTests(unittest.TestCase):
 
         encrypted_message = [5312, 9110, 9947, 4102, 2310, 5164, 14643, 4102, 3743, 4102, 4236, 272, 4102, 7228, 4102, 9947, 9110, 4102, 14562, 3400, 12460, 9256, 3400, 14562, 7838, 9110, 4102, 9947, 5164, 7838, 5164]
 
-        self.assertRaises(EmptyPublicKey,EncriptationEngine().message_decoder,encrypted_message,public_key,prime_number1,prime_number2)
+        self.assertRaises(EmptyPublicKey,EncriptationEngine().decode_and_decrypt_message,encrypted_message,public_key,prime_number1,prime_number2)
     
     #Error Case #4
     def test_empty_secret_key(self):
@@ -128,7 +128,7 @@ class encryptionTests(unittest.TestCase):
 
         encrypted_message = ''
 
-        self.assertRaises(SyntaxError,EncriptationEngine().message_decoder,encrypted_message,public_key,prime_number1,prime_number2)
+        self.assertRaises(SyntaxError,EncriptationEngine().decode_and_decrypt_message,encrypted_message,public_key,prime_number1,prime_number2)
 
     #Error Case #5
     def test_encrypt_with_invalid_public_key(self):
@@ -157,7 +157,7 @@ class encryptionTests(unittest.TestCase):
 
         encrypted_message = [27546, 16233, 36387, 35328, 38571, 38450, 27337, 20975, 28239, 5622, 16233, 38450, 32084, 27337, 6505, 35328, 990, 27337, 36777, 35328, 5622, 38450, 8957, 38571, 38450, 37734, 5622, 6505, 35328, 36387, 6505, 38571]
 
-        self.assertRaises(EmptyInputValuesError,EncriptationEngine().message_decoder,encrypted_message,public_key,prime_number1,prime_number2)
+        self.assertRaises(EmptyInputValuesError,EncriptationEngine().decode_and_decrypt_message,encrypted_message,public_key,prime_number1,prime_number2)
 
     #Error Case #8
         
@@ -219,7 +219,7 @@ class encryptionTests(unittest.TestCase):
         expected_unencrypted_message = '123385848546'
         encrypted_message = [9327, 6415, 11000, 11000, 1367, 3542, 1367, 2470, 1367, 3542, 2470, 5964]
 
-        encrypted_message = EncriptationEngine().message_decoder(encrypted_message,public_key,prime_number1,prime_number2)
+        encrypted_message = EncriptationEngine().decode_and_decrypt_message(encrypted_message,public_key,prime_number1,prime_number2)
 
         self.assertEqual(expected_unencrypted_message,encrypted_message)
 
@@ -232,7 +232,7 @@ class encryptionTests(unittest.TestCase):
         expected_unencrypted_message = 'a'
         encrypted_message = [82]
 
-        encrypted_message = EncriptationEngine().message_decoder(encrypted_message,public_key,prime_number1,prime_number2)
+        encrypted_message = EncriptationEngine().decode_and_decrypt_message(encrypted_message,public_key,prime_number1,prime_number2)
 
         self.assertEqual(expected_unencrypted_message,encrypted_message)
 
@@ -245,7 +245,7 @@ class encryptionTests(unittest.TestCase):
         encrypted_message = [2133, 5290, 3193, 8805, 4496, 3928, 5290, 2133, 6581, 4496]
         expected_unencrypted_message = '@%$*#&%@(#'
 
-        encrypted_message = EncriptationEngine().message_decoder(encrypted_message,public_key,prime_number1,prime_number2)
+        encrypted_message = EncriptationEngine().decode_and_decrypt_message(encrypted_message,public_key,prime_number1,prime_number2)
 
         self.assertEqual(expected_unencrypted_message,encrypted_message)
 

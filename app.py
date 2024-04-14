@@ -2,7 +2,7 @@ import sys
 
 sys.path.append('src')
 
-import encriptation_console.encriptation_console as encriptation_console
+import console.encriptation_console as encriptation_console
 
 if __name__ == '__main__':
 
