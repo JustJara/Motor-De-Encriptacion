@@ -5,8 +5,6 @@ import re
 
 sys.path.append('src')
 
-# Importamos la la libreria de encriptacion PyCryptodome
-
 
 # Definimos la clase para capturar la excepcion de un mensaje vacio
 class EmptyEncryptMessage(Exception):
