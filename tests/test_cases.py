@@ -95,7 +95,7 @@ class encryptionTests(unittest.TestCase):
 
         unencrypted_message = ''
 
-        self.assertRaises(EmptyEncryptMessage,EncriptationEngine().encode_and_encryp_message_with_inputs,unencrypted_message,prime_number1,prime_number2,public_key)
+        self.assertRaises(EmptyMessageError,EncriptationEngine().encode_and_encryp_message_with_inputs,unencrypted_message,prime_number1,prime_number2,public_key)
 
     #Error Case #2
     def test_empty_public_key_to_encrypt(self):

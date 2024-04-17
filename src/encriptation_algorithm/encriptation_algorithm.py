@@ -9,9 +9,9 @@ import random
 import math
 import re
 
-sys.path.append('src')
+sys.path.append('src') 
 
-class EmptyEncryptMessage(Exception):
+class EmptyMessageError(Exception):
     '''
 
     Custom exception to indicate that the entered message cannot be empty
@@ -51,7 +51,8 @@ class InvalidPublicKey(Exception):
 
         '''
         super().__init__()
-        self.message = 'La clave solo puede contener valores númericos separados por coma'
+        def __init__(self, message):
+            self.message = message
 
 class EmptyPublicKey(Exception):
     '''
@@ -71,7 +72,7 @@ class EmptyPublicKey(Exception):
 
         '''
         super().__init__()
-        self.message = 'La clave no puede estar vacía'
+        self.message = 'La clave no puede estar vacía, intente ingresando una clave válida: ej. [123, 456, 789]'
 
 class NonPrimeNumber(Exception):
     '''
@@ -88,7 +89,7 @@ class NonPrimeNumber(Exception):
         Para lanzar esta excepción, los números ingresados no deben ser primos
         '''
         super().__init__()
-        self.message = 'Los números ingresados no son primos'
+        self.message = 'Los números ingresados no son primos. Recuerde que un número primo es divisible por si mismo y por 1 únicamente'
 
 class EmptyInputValuesError(Exception):
     '''
@@ -107,7 +108,7 @@ class EmptyInputValuesError(Exception):
 
         '''
         super().__init__()
-        self.message = 'No puedes dejar espacios vacíos'
+        self.message = 'No puedes dejar espacios vacíos, intenta ingresando valores en cada campo'
 
 
 class EncriptationEngine:
@@ -373,7 +374,7 @@ class EncriptationEngine:
         
         #Valida si el mensaje no está vacío y lanza una excepción si lo está
         if message == '':
-            raise EmptyEncryptMessage
+            raise EmptyMessageError
         else:
             encrypted_message : list = []
 
@@ -477,7 +478,7 @@ class EncriptationEngine:
             Cuando el formato no es válido
         '''
         # Definimos el patrón de la expresión regular
-        patron = r'^\d+,\d+,\d+.*$'    
+        patron = r'^\[\d+,\s*\d+,\s*\d+\]$'
 
         # Comprobamos si la cadena coincide con el patrón
         if re.match(patron, secret_key):
@@ -585,7 +586,7 @@ class EncriptationEngine:
         
         #Valida si el mensaje no está vacío y lanza una excepción si lo está
         if message == '':
-            raise EmptyEncryptMessage
+            raise EmptyMessageError
         if prime_number1 == None or prime_number2 == None:
             raise EmptyInputValuesError
         if public_key == None:

@@ -17,8 +17,8 @@ class MainScreen(Screen):
         self.layout = GridLayout(cols=1, padding=20, spacing=20)
         self.layout.add_widget(Label(text="Bienvenido al motor de encriptación", font_size=50))
         self.layout.add_widget(Label(text="¿Qué desea hacer hoy?", font_size=35))
-        self.layout.add_widget(Button(text="Encriptar", font_size=50, on_press=self.switch_to_encryption))
-        self.layout.add_widget(Button(text="Desencriptar", font_size=50, on_press=self.switch_to_decryption))
+        self.layout.add_widget(Button(text="Encriptar un mensaje", font_size=50, on_press=self.switch_to_encryption))
+        self.layout.add_widget(Button(text="Desencriptar un mensaje", font_size=50, on_press=self.switch_to_decryption))
         self.layout.add_widget(Button(text="Salir", font_size=50, on_press=self.exit_app))
         self.add_widget(self.layout)
 
