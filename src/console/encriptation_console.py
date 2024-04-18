@@ -72,7 +72,8 @@ class ConsoleUI:
         Calls the encode_and_encrypt_message_with_inputs method of the EncriptationEngine class to encrypt the message /
         Llama al método encode_and_encrypt_message_with_inputs de la clase EncriptationEngine para encriptar el mensaje 
         '''
-        encrypted_message = self.encriptation_engine.encode_and_encryp_message_with_inputs(message,prime_number1,prime_number2,public_key)
+        encrypted_message = self.encriptation_engine.encode_and_encrypt_message_with_inputs(message,prime_number1,prime_number2,public_key)
+        print(f'La llave pública es : [{public_key},{prime_number1},{prime_number2}]')
         print(f'Mensaje encriptado: {encrypted_message}')
 
 
@@ -96,6 +97,7 @@ class ConsoleUI:
         '''
        
         encrypted_message : list = input('Ingrese el mensaje a desencriptar: ')
+
         secret_key = (input('Ingrese la clave pública utilizada para encriptar el mensaje: '))
         if not encrypted_message.startswith('[') or not encrypted_message.endswith(']'):
             raise EmptyMessageError
@@ -107,12 +109,23 @@ class ConsoleUI:
             Calls the decode_and_decrypt_message method of the EncriptationEngine class to decrypt the message /
             Llama al método decode_and_decrypt_message de la clase EncriptationEngine para desencriptar el mensaje
             '''
+            encrypted_message = encrypted_message.strip('[]')
+
+            # Dividir la cadena en elementos individuales
+            elementos = encrypted_message.split(', ')
+
+            # Convertir cada elemento en la lista a un entero
+            list_encrypted_message = [int(elemento) for elemento in elementos]
+            print(f'Type encrypted: {type(list_encrypted_message)} {list_encrypted_message}')
+            
             public_key, prime_number1, primer_number2 = secret_key.split(',')
             public_key = int(public_key.strip('[').strip(']').strip())
-            prime_number1 = int(prime_number1.strip('[]').strip(']').strip())
+            prime_number1 = int(prime_number1.strip('[').strip(']').strip())
             prime_number2 = int(primer_number2.strip('[]').strip(']').strip())
-            decrypted_message = self.encriptation_engine.decode_and_decrypt_message(encrypted_message, public_key,prime_number1,prime_number2)
+            
+            decrypted_message = self.encriptation_engine.decode_and_decrypt_message(list_encrypted_message, public_key,prime_number1,prime_number2)
             print(f'Mensaje desencriptado: {decrypted_message}')
+
     def show_functionalities_menu(self):
         '''
         This method shows the functionalities menu of the application.
@@ -173,7 +186,7 @@ class ConsoleUI:
                         elif option1 == 2:
 
                             print('Recuerda que el mensaje debe ser ingresado como una lista de números separados por comas.')
-                            print('Ejemplo: [123, 456, 789]')
+                            print('Ejemplo: [123, 456, 789]\n')
                             print('Recuerda que la clave pública debe ser ingresada como una cadena de tres números separados por comas.')
                             print('Ejemplo: [123 ,456 , 789]')
                             print('--------------------')
@@ -189,21 +202,21 @@ class ConsoleUI:
                         print('--------------------')
  
                     except EmptyMessageError as error:
-                        print(f'ERROR: {error}')
+                        print(f'ERROR EmptyMessageError: {error}')
                     except EmptyInputValuesError as error:
-                        print(f'ERROR: {error.message}')
+                        print(f'ERROR EmptyInputValuesError: {error.message}')
                     except EmptyPublicKey as error:
-                        print(f'ERROR: {error.message}')
+                        print(f'ERROR EmptyPublicKey: {error.message}')
                     except NonPrimeNumber as error:
-                        print(f'ERROR: {error.message}')
+                        print(f'ERROR NonPrimeNumbers: {error.message}')
                     except InvalidPublicKey as error:
-                        print(f'ERROR: {error.message}')
+                        print(f'ERROR InvalidPublicKey: {error.message}')
                     except TypeError as error:
-                        print(f'ERROR: {error}')
+                        print(f'ERROR TypeError: {error}')
                     except ValueError as error:
-                        print(f'ERROR: {error}')
+                        print(f'ERROR ValueError: {error}')
                     except Exception as error:
-                        print(f'ERROR: {error}')
+                        print(f'ERROR Exception: {error}')
 
 
 

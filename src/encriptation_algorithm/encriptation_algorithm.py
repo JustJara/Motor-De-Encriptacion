@@ -42,7 +42,7 @@ class InvalidPublicKey(Exception):
     Excepción personalizada para indicar que la clave pública ingresada es inválida
 
     '''
-    def __init__(self):
+    def __init__(self,message: str = 'La clave pública debe ser ingresada como una lista de tres números separados por comas. Ejemplo: [123, 456, 789]'):
 
         '''
         To raise this exception, the entered public key must be invalid
@@ -51,8 +51,11 @@ class InvalidPublicKey(Exception):
 
         '''
         super().__init__()
-        def __init__(self, message):
-            self.message = message
+        
+        self.message = message
+
+    def __str__(self) -> str:
+        return self.message
 
 class EmptyPublicKey(Exception):
     '''
@@ -74,6 +77,9 @@ class EmptyPublicKey(Exception):
         super().__init__()
         self.message = 'La clave no puede estar vacía, intente ingresando una clave válida: ej. [123, 456, 789]'
 
+    def __str__(self) -> str:
+        return self.message
+
 class NonPrimeNumber(Exception):
     '''
     
@@ -90,6 +96,9 @@ class NonPrimeNumber(Exception):
         '''
         super().__init__()
         self.message = 'Los números ingresados no son primos. Recuerde que un número primo es divisible por si mismo y por 1 únicamente'
+
+    def __str__(self) -> str:
+        return self.message
 
 class EmptyInputValuesError(Exception):
     '''
@@ -109,6 +118,9 @@ class EmptyInputValuesError(Exception):
         '''
         super().__init__()
         self.message = 'No puedes dejar espacios vacíos, intenta ingresando valores en cada campo'
+
+    def __str__(self) -> str:
+        return self.message
 
 
 class EncriptationEngine:
@@ -531,7 +543,7 @@ class EncriptationEngine:
             
             return encrypted_message
 
-    def encode_and_encryp_message_with_inputs(self,message: str, prime_number1, prime_number2,public_key) -> list[int]:
+    def encode_and_encrypt_message_with_inputs(self,message: str, prime_number1, prime_number2,public_key) -> list[int]:
 
         '''
         Encodes and encrypts the message entered by the user with the public key and RSA module given by the user
