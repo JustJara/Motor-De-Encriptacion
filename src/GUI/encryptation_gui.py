@@ -70,7 +70,7 @@ class MainScreen(Screen):
         App.get_running_app().stop()
 
 
-class EncryptionScreen(Screen):
+class EncryptionScreenWithInputs(Screen):
     '''
     Class builds and manages the encryption screen of the application.
 
@@ -83,7 +83,7 @@ class EncryptionScreen(Screen):
         Este método inicializa el atributo layout de la clase y agrega los widgets al layout.
         '''
 
-        super(EncryptionScreen, self).__init__(**kwargs)
+        super(EncryptionScreenWithInputs, self).__init__(**kwargs)
 
         # Layout principal donde están todos los demás widgets y layouts adicionales
         self.main_layout = GridLayout(cols=1, padding=20, spacing=20)
@@ -305,7 +305,7 @@ class DecryptationScreen(Screen):
             # Validates if the inputs arent empty / Valida si los inputs no están vacíos
             self.validate_decrypt_inputs()
             # Getting prime numbers / Obteniendo números primos
-            encrypted_message : list = (self.encripted_message.text)
+            encrypted_message  = (self.encripted_message.text)
             secret_key : str = str(self.secret_key.text)
 
 
@@ -318,16 +318,23 @@ class DecryptationScreen(Screen):
                 '''
                 Calls the decode_and_decrypt_message method of the EncriptationEngine class to decrypt the message /
                 Llama al método decode_and_decrypt_message de la clase EncriptationEngine para desencriptar el mensaje
+
                 '''
+                encrypted_message = encrypted_message.strip('[]')
+
+                # Dividir la cadena en elementos individuales
+                elementos = encrypted_message.split(', ')
+
+                # Convertir cada elemento en la lista a un entero
+                list_encrypted_message = [int(elemento) for elemento in elementos]
+
                 public_key, prime_number1, primer_number2 = secret_key.split(',')
                 public_key = int(public_key.strip('[').strip(']').strip())
                 prime_number1 = int(prime_number1.strip('[]').strip(']').strip())
                 prime_number2 = int(primer_number2.strip('[]').strip(']').strip())
 
-                print(type(public_key), type(prime_number1), type(prime_number2) )
-                decrypted_message = EncriptationEngine().decode_and_decrypt_message(encrypted_message, public_key,prime_number1,prime_number2)
+                decrypted_message = EncriptationEngine().decode_and_decrypt_message(list_encrypted_message, public_key,prime_number1,prime_number2)
                 self.decrypted_message.text = str(decrypted_message)
-                print(f'Mensaje desencriptado: {decrypted_message}')
 
             
 
@@ -382,7 +389,7 @@ class EncryptationApp(App):
         
         self.screen_manager = ScreenManager()
         self.main_screen = MainScreen(name='main')
-        self.encryption_screen = EncryptionScreen(name='encryption')
+        self.encryption_screen = EncryptionScreenWithInputs(name='encryption')
         self.decryption_screen = DecryptationScreen(name='decryption')
 
         self.screen_manager.add_widget(self.main_screen)

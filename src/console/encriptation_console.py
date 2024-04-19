@@ -116,7 +116,6 @@ class ConsoleUI:
 
             # Convertir cada elemento en la lista a un entero
             list_encrypted_message = [int(elemento) for elemento in elementos]
-            print(f'Type encrypted: {type(list_encrypted_message)} {list_encrypted_message}')
             
             public_key, prime_number1, primer_number2 = secret_key.split(',')
             public_key = int(public_key.strip('[').strip(']').strip())
