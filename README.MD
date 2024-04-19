@@ -1,4 +1,4 @@
-# Proyecto de Aula Codigo Limpio
+# Proyecto de Aula Código Limpio
 
 ## Autores
 
