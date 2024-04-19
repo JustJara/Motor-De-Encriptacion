@@ -1,7 +1,7 @@
 import unittest
 import sys
 
-sys.path.append('encryption_engine/src')
+sys.path.append('src')
 
 from encriptation_algorithm.encriptation_algorithm import *
 

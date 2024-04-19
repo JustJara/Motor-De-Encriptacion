@@ -2,9 +2,9 @@
 
 ## Autores
 
-Felipe Villa Jaramillo
-Juan Pablo Cardona Bedoya
-Josué Gómez Granda
+- Felipe Villa Jaramillo
+- Juan Pablo Cardona Bedoya
+- Josué Gómez Granda
 
 ## ¿Qué es y para qué es?
 
@@ -81,7 +81,7 @@ Dentro de la carpeta tests contamos con un solo archivo, test_cases.py, en este 
 ## ¿Cómo ejecutar los tests?
 
 Para ejecutar los casos de prueba deberá de escrbir en la terminal de python el siguiente comando:
-	- python3 tests/test_cases.py
+- python3 tests/test_cases.py
 
 
 

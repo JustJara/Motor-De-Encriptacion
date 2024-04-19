@@ -1,7 +1,8 @@
 import sys
-sys.path.append("encryption_engine/src")
+sys.path.append("src")
 
-import encriptation_algorithm.encriptation_algorithm as encriptation_algorithm
+
+from encriptation_algorithm import encriptation_algorithm
 from encriptation_algorithm.encriptation_algorithm import EncriptationEngine
 from encriptation_algorithm.encriptation_algorithm import EmptyMessageError
 from encriptation_algorithm.encriptation_algorithm import InvalidPublicKey
@@ -28,18 +29,21 @@ class MainScreen(Screen):
     def __init__(self, **kwargs):
 
         '''
-        This method initializes the layout attribute of the class and adds the widgets to the layout.
+        This method creates the mainscreen layout and adds the widgets to the layout.
 
-        Este método inicializa el atributo layout de la clase y agrega los widgets al layout.
+        Este método crea el layout de la pantalla principal y agrega los widgets al layout.
         '''
 
         super(MainScreen, self).__init__(**kwargs)
 
+        # Layout principal donde están todos los demás widgets y layouts adicionales
         self.layout = GridLayout(cols=1, padding=20, spacing=20)
         
+        # Agregar texto de lo que hace la interfaz directamente en el layout principal
         self.layout.add_widget(Label(text="Bienvenido al motor de encriptación", font_size=50))
         self.layout.add_widget(Label(text="¿Qué desea hacer hoy?", font_size=35))
 
+        # Botones para cambiar de pantalla y manejar la lógica de la aplicación
         self.layout.add_widget(Button(text="Encriptar un mensaje", font_size=50, on_press=self.switch_to_encryption))
         self.layout.add_widget(Button(text="Desencriptar un mensaje", font_size=50, on_press=self.switch_to_decryption))
         self.layout.add_widget(Button(text="Salir", font_size=50, on_press=self.exit_app))
@@ -47,9 +51,9 @@ class MainScreen(Screen):
 
     def switch_to_encryption(self, instance):
         '''
-        This method switches the screen to the encryption screen.
+        This method switches the screen to the previous encryption screen.
 
-        Este método cambia la pantalla actual a la pantalla de encriptación.
+        Este método cambia la pantalla actual a la pantalla previa de encriptación.
         '''
         app.screen_manager.current = 'pre_encryption'
 
@@ -71,9 +75,9 @@ class MainScreen(Screen):
 
 class EncryptionScreenWithoutInputs(Screen):
     '''
-    Class builds and manages the encryption screen of the application.
+    Class builds and manages the encryption screen with the user inputs.
 
-    Esta clase construye y gestiona la pantalla de encriptación de la aplicación.
+    Esta clase construye y gestiona la pantalla de encriptación con los inputs del usuario.
     '''
     def __init__(self, **kwargs):
         '''
@@ -99,20 +103,23 @@ class EncryptionScreenWithoutInputs(Screen):
         self.encrypted_message_layout.add_widget(Label(text="El mensaje encriptado es: ", font_size=20))
         self.text_encrypted_message = TextInput(font_size=16, multiline=False,readonly=True ,height=300,hint_text='Aquí se mostrará el mensaje encriptado') 
 
-        # Grid layout que contiene el label y textinput donde se muestra la clave secreta
 
+        # Grid layout que contiene el label y textinput donde se muestra la clave secreta
         self.secret_key_layout = GridLayout(rows = 2, spacing = 20)
         self.secret_key_label = Label(text="La clave secreta es: ", font_size=20) 
         self.secret_key = TextInput(font_size=16, multiline=False,readonly=True ,height=300,hint_text='Aquí se mostrará la clave secreta')
 
+        # Se agregan los widgets al layout de la clave secreta
         self.secret_key_layout.add_widget(self.secret_key_label)
         self.secret_key_layout.add_widget(self.secret_key)
         
+
         self.encrypted_message_layout.add_widget(self.text_encrypted_message)
 
         # Grid layout que contienee el botón para volver y ejecutar la lógica de encriptación
         self.buttons_layout  = BoxLayout( spacing = 20)
 
+        # Botones para volver, encriptar y limpiar los inputs
         self.back_button = Button(text="Volver", font_size=20, size_hint=(None, None), size=(100, 50))
         self.back_button.bind(on_press=self.switch_to_main) 
 
@@ -136,6 +143,11 @@ class EncryptionScreenWithoutInputs(Screen):
         self.add_widget(self.main_layout)
 
     def switch_to_main(self, instance):
+        '''
+        This method changes the current screen to the main screen.
+
+        Este método cambia la pantalla actual a la pantalla principal.
+        '''
         app.screen_manager.current = 'main'
 
     def clear_text_inputs(self, instance):
@@ -196,8 +208,13 @@ class EncryptionScreenWithoutInputs(Screen):
             raise EmptyInputValuesError
 
     def show_popup_encryption_errors(self, err):
+        '''
+        This method shows a popup with the error message.
+
+        Este método muestra un popup con el mensaje de error.
+        '''
         contenido = GridLayout(cols=1)
-        error_label = Label(text=str(err))  # Establecer un alto fijo o usar size_hint_y=None para permitir que el Label defina su propio alto
+        error_label = Label(text=str(err))  
         contenido.add_widget(error_label)
 
         boton_cerrar = Button(text='Cerrar')
@@ -208,13 +225,27 @@ class EncryptionScreenWithoutInputs(Screen):
         error_popup.open()
         
 class PreEncryptionScreen(Screen):
+    '''
+    This class builds and manages the pre-encryption screen of the application.
+
+    Esta clase construye y gestiona la pantalla de pre-encriptación de la aplicación.
+    '''
 
     def __init__(self, **kw):
+
+        ''''
+        This method initializes the layout of the class and adds the widgets to the layout.
+
+        Método que inicializa el layout de la clase y agrega los widgets al layout.
+        '''
         super().__init__(**kw)
 
+
+        # Layout principal donde están todos los demás widgets y layouts adicionales
         self.layout = GridLayout(cols=1, padding=20, spacing=20)
         self.layout.add_widget(Label(text='Para encriptar puede utilizar \n dos funcionalidades de la aplicación.' ,halign='center',valign='middle',font_size=50))
 
+        # Grid layout que contiene los botones para seleccionar la funcionalidad de encriptación
         self.decition_buttons_layout = GridLayout(rows=3, padding=20, spacing=20)
 
         self.button_decition_1 = Button(text='Encriptar mensaje con llave pública generada por el motor y números primos \n seleccionados por el motor.',halign='center',valign='middle', font_size=20)
@@ -225,21 +256,38 @@ class PreEncryptionScreen(Screen):
         self.decition_buttons_layout.add_widget(self.button_decition_2)
         self.decition_buttons_layout.add_widget(self.back_button)
 
+        # Botones para cambiar de pantalla y manejar la lógica de la aplicación
         self.back_button.bind(on_press=self.switch_to_main)
         self.button_decition_1.bind(on_press=self.switch_to_encryption_without_inputs)
         self.button_decition_2.bind(on_press=self.switch_to_encryption_with_inputs)
 
+        # Se agregan los layouts de los widgets al layout principal
         self.layout.add_widget(self.decition_buttons_layout)
 
         self.add_widget(self.layout)
 
     def switch_to_main(self, instance):
+        '''
+        This method changes the current screen to the main screen.
+
+        Este método cambia la pantalla actual a la pantalla principal.
+        '''
         app.screen_manager.current = 'main'
 
     def switch_to_encryption_with_inputs(self, instance):
+        '''
+        This method changes the current screen to the encryption screen with the user inputs.
+
+        Este método cambia la pantalla actual a la pantalla de encriptación con los inputs del usuario.
+        '''
         app.screen_manager.current = 'encryption_with_inputs'
 
     def switch_to_encryption_without_inputs(self, instance):
+        '''
+        This method changes the current screen to the encryption screen without the user inputs.
+
+        Este método cambia la pantalla actual a la pantalla de encriptación sin los inputs del usuario.
+        '''
         app.screen_manager.current = 'encryption'
 
 class EncryptionScreenWithInputs(Screen):
@@ -319,6 +367,11 @@ class EncryptionScreenWithInputs(Screen):
         self.add_widget(self.main_layout)
 
     def switch_to_main(self, instance):
+        '''
+        This method changes the current screen to the main screen.
+
+        Este método cambia la pantalla actual a la pantalla principal.
+        '''
         app.screen_manager.current = 'main'
 
     def clear_text_inputs(self, instance):
@@ -393,6 +446,11 @@ class EncryptionScreenWithInputs(Screen):
             raise InvalidPublicKey('La clave pública debe ser un número entero')
             
     def show_popup_encryption_errors(self, err):
+        '''
+        This method shows a popup with the error message.
+
+        Este método muestra un popup con el mensaje de error.
+        '''
         contenido = GridLayout(cols=1)
         error_label = Label(text=str(err))  # Establecer un alto fijo o usar size_hint_y=None para permitir que el Label defina su propio alto
         contenido.add_widget(error_label)
@@ -405,7 +463,17 @@ class EncryptionScreenWithInputs(Screen):
         error_popup.open()
 
 class DecryptationScreen(Screen):
+    '''
+    This class builds and manages the decryption screen of the application.
+
+    Esta clase construye y gestiona la pantalla de desencriptación de la aplicación.
+    '''
     def __init__(self, **kwargs):
+        '''
+        This method initializes the layout attribute of the class and adds the widgets to the layout.
+
+        Este método inicializa el atributo layout de la clase y agrega los widgets al layout.
+        '''
         super(DecryptationScreen, self).__init__(**kwargs)
 
         # Layout principal donde están todos los demás widgets y layouts adicionales
@@ -457,6 +525,11 @@ class DecryptationScreen(Screen):
         self.add_widget(self.main_layout)
 
     def switch_to_main(self, instance):
+        '''
+        This method changes the current screen to the main screen.
+
+        Este método cambia la pantalla actual a la pantalla principal.
+        '''
         app.screen_manager.current = 'main'
 
     def clear_text_inputs(self, instance):
@@ -547,6 +620,11 @@ class DecryptationScreen(Screen):
                 raise EmptyInputValuesError
             
     def show_popup_decryption_errors(self, err):
+        '''
+        This method shows a popup with the error message.
+
+        Este método muestra un popup con el mensaje de error.
+        '''
         contenido = GridLayout(cols=1)
         error_label = Label(text=str(err))
         contenido.add_widget(error_label)
@@ -559,7 +637,17 @@ class DecryptationScreen(Screen):
         error_popup.open()
 
 class EncryptationApp(App):
+    '''
+    This class builds and manages the application.
+
+    Esta clase construye y gestiona la aplicación.
+    '''
     def build(self):
+        '''
+        This method builds the screen manager and adds the screens to the screen manager.
+
+        Este método construye el screen manager y agrega las pantallas al screen manager.
+        '''
         
         self.screen_manager = ScreenManager()
         self.main_screen = MainScreen(name='main')
@@ -578,7 +666,7 @@ class EncryptationApp(App):
 
 
 
-
+# Run the application / Ejecuta la aplicación
 if __name__ == "__main__":
     app = EncryptationApp()
     app.run()
