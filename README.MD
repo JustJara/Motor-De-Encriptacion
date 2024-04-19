@@ -2,9 +2,9 @@
 
 ## Autores
 
-Josué Gómez Granda
 Felipe Villa Jaramillo
 Juan Pablo Cardona Bedoya
+Josué Gómez Granda
 
 ## ¿Qué es y para qué es?
 
@@ -32,10 +32,10 @@ En caso de ser usuario de los sistemas operativos Windows, macOS, Linux, BSD y R
 	python -m pip install "kivy[base]"
 	cuando el comando ya este escrito en la terminal pulsa la tecla 'ENTER'.
 
+- Para más información acerca de la instalación de Kivy, acceder a la documentación oficial: https://kivy.org/doc/stable/gettingstarted/installation.html
+
 
 ## ¿Cómo está hecho?
-
-Describir la arquitectura del proyecto, bibliotecas usadas, dependencias de otros proyectos
 
 Las librerías usadas son math, y random, con las cuales se tendrán más opciones matemáticas y se podran generar los números aleatorios
 necesarios para que el programa se ejecute correctamente.
@@ -52,19 +52,20 @@ Dentro de src contamos con otras dos carpetas, las cuales son las siguientes:
 - encriptation_console -> en esta carpeta se encuentra el archivo encriptation_console.py donde se encuentra la implementación
 para mostrar una interfaz por consola.
 
-- GUI -> en esta carpeta se encuentra el archivo encryptation_gui.py donde se encuentra la implementación para mostrar una interfaz gráfica.
+- GUI -> en esta carpeta se encuentra el archivo encryptation_gui.py donde se encuentra la implementación para ejecutar la aplicación con una interfaz gráfica.
 
-Dentro de la carpeta tests contamos con un solo archivo, test_cases.py, en este archivo se encuentran 20 implementados 20 casos de prueba, entre estos casos de prueba hay 3 casos de prueba de encripción, 3 casos de prueba de desencripción, 8 casos de prueba de error (4 de encripción y 4 de desencripción) y finalmente 6 casos de prueba excepcionales (3 de encripción y 3 de desencripción)
+Dentro de la carpeta tests contamos con un solo archivo, test_cases.py, en este archivo se encuentran 20 casos de prueba implementados , entre estos casos de prueba, hay 3 casos de prueba de encripción, 3 casos de prueba de desencripción, 8 casos de prueba de error (4 de encripción y 4 de desencripción). Finalmente 6 casos de prueba excepcionales (3 de encripción y 3 de desencripción)
 
 
 
 ## ¿Cómo puede usar el usuario el programa
 
 
-#AQUI VA COMO EJECUTARLO
-'''''
-'''''
-'''''
+- Para ejecutar el programa de encripción desde la interfaz por consola, deberá ingresar el siguiente comando:
+	- python3 app.py
+
+- Para ejecutar el programa de encripción desde la interfaz gráfica de Kivy, deberá ingresar el siguiente comando:
+	- python3 src/GUI/encryptation_gui.py
 
 - En caso de encriptación: 
 	1. Tienes que brindar el mensaje que desees encriptar
@@ -79,6 +80,8 @@ Dentro de la carpeta tests contamos con un solo archivo, test_cases.py, en este 
 
 ## ¿Cómo ejecutar los tests?
 
-!"!"!""!!""!!"!"!""!
+Para ejecutar los casos de prueba deberá de escrbir en la terminal de python el siguiente comando:
+	- python3 tests/test_cases.py
+
 
 

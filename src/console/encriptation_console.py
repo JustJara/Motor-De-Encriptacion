@@ -100,7 +100,7 @@ class ConsoleUI:
 
         secret_key = (input('Ingrese la clave pública utilizada para encriptar el mensaje: '))
         if not encrypted_message.startswith('[') or not encrypted_message.endswith(']'):
-            raise EmptyMessageError
+            raise Exception('El mensaje debe ser ingresado como una lista de números separados por comas.')
 
         elif self.encriptation_engine.secret_key_format_validator(secret_key) == False:
             raise encriptation_algorithm.InvalidPublicKey('La clave pública debe ser una cadena de texto con el formato especificado')
@@ -216,6 +216,4 @@ class ConsoleUI:
                         print(f'ERROR ValueError: {error}')
                     except Exception as error:
                         print(f'ERROR Exception: {error}')
-
-
 
