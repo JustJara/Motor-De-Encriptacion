@@ -9,7 +9,7 @@ import random
 import math
 import re
 
-sys.path.append('src') 
+sys.path.append('encryption_engine/src') 
 
 class EmptyMessageError(Exception):
     '''

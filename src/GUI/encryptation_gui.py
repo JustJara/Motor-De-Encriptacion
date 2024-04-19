@@ -1,5 +1,5 @@
 import sys
-sys.path.append("src")
+sys.path.append("encryption_engine/src")
 
 import encriptation_algorithm.encriptation_algorithm as encriptation_algorithm
 from encriptation_algorithm.encriptation_algorithm import EncriptationEngine

@@ -8,7 +8,7 @@ Este archivo contiene la clase ConsoleUI, la cual es responsable de la interfaz 
 
 import sys
 
-sys.path.append('src')
+sys.path.append('encryption_engine/src')
 
 import encriptation_algorithm.encriptation_algorithm as encriptation_algorithm
 from encriptation_algorithm.encriptation_algorithm import EmptyMessageError

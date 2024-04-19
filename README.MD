@@ -23,7 +23,7 @@ hay que hacer los siguientes pasos
 
 En caso de ser usuario de los sistemas operativos Windows, macOS, Linux, BSD y RPi.
 
-1. Abrir la terminal de python
+1. Abrir la terminal de python desde visual studio code
 	- Para abrir la terminal de python es necesario ubicarse en la parte de arriba a la izquierda del visual studio code, darle click a la
 	opción terminal, y seguidamente darle click a la opción new terminal o en español nueva terminal.
 
@@ -52,13 +52,13 @@ Dentro de src contamos con otras dos carpetas, las cuales son las siguientes:
 - encriptation_console -> en esta carpeta se encuentra el archivo encriptation_console.py donde se encuentra la implementación
 para mostrar una interfaz por consola.
 
-- GUI -> en esta carpeta se encuentra el archivo encryptation_gui.py donde se encuentra la implementación para ejecutar la aplicación con una interfaz gráfica.
+- GUI -> en esta carpeta se encuentra el archivo encryptation_gui.py, la implementación para ejecutar la aplicación con una interfaz gráfica.
 
 Dentro de la carpeta tests contamos con un solo archivo, test_cases.py, en este archivo se encuentran 20 casos de prueba implementados , entre estos casos de prueba, hay 3 casos de prueba de encripción, 3 casos de prueba de desencripción, 8 casos de prueba de error (4 de encripción y 4 de desencripción). Finalmente 6 casos de prueba excepcionales (3 de encripción y 3 de desencripción)
 
 
 
-## ¿Cómo puede usar el usuario el programa
+## ¿Cómo usar el programa?
 
 
 - Para ejecutar el programa de encripción desde la interfaz por consola, deberá ingresar el siguiente comando:
