@@ -28,6 +28,19 @@ def create_table():
     Creates user table in case it does not exist
     """
 
+    sql = ''
+    with open('src/controller/create_table.sql', 'r') as file:
+        sql = file.read()
+
+    cursor = get_cursor()
+
+    try:
+        cursor.execute(sql)
+        cursor.connection.commit()
+    except:
+        cursor.connection.rollback()
+    
+
 def insert_user(username: str, password : str):
     """
     Inserts a new user in the database
@@ -40,6 +53,17 @@ def insert_user(username: str, password : str):
 
     #Check if user already exists in data
 
+    Parameters:
+
+    -----------
+    username : str
+        Username to be inserted in the database /
+        Nombre de usuario a ingresar en la base de datos
+
+    password : str
+        Password to be inserted in the database /
+        Contraseña a ingresar en la base de datos
+
     """
 
 def insert_user_messages(username: str, secret_key: str, encrypted_message: str, original_message: str):
@@ -51,11 +75,36 @@ def insert_user_messages(username: str, secret_key: str, encrypted_message: str,
 
     -----------
 
+    username: str
+        Username to be inserted in the database /
+        Nombre de usuario a ingresar en la base de datos
+
+    secret_key: str
+        Secret key to be inserted in the database /
+        Clave secreta a ingresar en la base de datos
+    
+    encrypted_message: str
+        Encrypted message to be inserted in the database /
+        Mensaje encriptado a ingresar en la base de datos
+
+    original_message: str
+        Original message to be inserted in the database /
+        Mensaje original a ingresar en la base de datos
+
     """
 
 
 def search_by_username(username : str):
     """
     Searches for a user by username
+
+    Parameters:
+
+    -----------
+
+    username: str
+        Username to be searched in the database /
+        Nombre de usuario a buscar en la base de datos
+
     """
 
