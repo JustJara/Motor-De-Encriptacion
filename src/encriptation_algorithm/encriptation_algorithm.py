@@ -8,6 +8,7 @@ import sys
 import random
 import math
 import re
+import controller.database_controller as db_controller
 
 sys.path.append('encryption_engine/src') 
 
@@ -122,6 +123,18 @@ class EmptyInputValuesError(Exception):
     def __str__(self) -> str:
         return self.message
 
+class User:
+    '''
+    Allows the creation of a user object with a username and password for data storage.
+
+    Permite la creación de un objeto de tipo usuario con un nombre de usuario y una contraseña para el almacenamiento de datos.
+    '''
+
+    def __init__(self,username: str, password: str):
+
+        self.username : str = username
+        self.password : str = password
+        self.encrypted_messages : dict = {}        
 
 class EncriptationEngine:
     '''
@@ -149,6 +162,35 @@ class EncriptationEngine:
         self.RSA_module: int = None
 
         self.phi : int = None
+
+    def register_user(self,username: str, password: str) -> User:
+        '''
+        Registers a user with a username and password
+
+        Registra un usuario con un nombre de usuario y una contraseña
+
+        Parameters
+        ----------
+
+        username : str
+            Username to be registered /
+            Nombre de usuario a registrar
+
+        password : str
+            Password to be registered /
+            Contraseña a registrar
+
+        Returns
+        -------
+
+        user : User
+            User object created with the username and password /
+            Objeto de tipo usuario creado con el nombre de usuario y la contraseña
+        '''
+
+        user : User = User(username, password)
+        db_controller.insert_user(user)
+
 
     def fill_prime_set(self):
         '''

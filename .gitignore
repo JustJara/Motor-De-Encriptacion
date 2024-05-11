@@ -2,3 +2,6 @@ __pycache__
 .pytest_cache
 .vscode
 .gitignore
+kivy[Base]
+my_project
+secret_config.py
