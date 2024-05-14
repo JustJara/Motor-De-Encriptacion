@@ -267,11 +267,12 @@ class EncriptationEngine:
             User object created with the username and password /
             Objeto de tipo usuario creado con el nombre de usuario y la contraseña
         '''
-        login_user_status = self.db_controller.login_user_db(username,password)
+        user = User(username,password)
+        login_user_status = self.db_controller.login_user_db(user)
         if login_user_status == False:
             raise Exception('La contraseña ingresada no es correcta. Intente nuevamente.')
         else:
-            self.current_user = User(username, password)
+            self.current_user = user
             return True
 
     def log_out(self):
@@ -621,9 +622,10 @@ class EncriptationEngine:
             for letter in message:
                 encrypted_message.append(self.encrypt_letter(ord(letter)))
 
-            return encrypted_message
+            hexadecimal_encrypted_message = self.convert_decimal_to_hexadecimal(encrypted_message)
+            return hexadecimal_encrypted_message
     
-    def decode_and_decrypt_message(self,encrypted_message : list[int], public_key : int ,prime_number1 : int,prime_number2 : int) -> str:
+    def decode_and_decrypt_message(self,hexadecimal_encrypted_message : list[int], public_key : int ,prime_number1 : int,prime_number2 : int) -> str:
         '''
         Decodes and decrypts the message entered by the user
 
@@ -673,15 +675,16 @@ class EncriptationEngine:
 
         if prime_number1 == None or prime_number2 == None:
             raise EmptyInputValuesError
-        if encrypted_message == '':
+        if hexadecimal_encrypted_message == '':
             raise SyntaxError('El mensaje no puede estar vacío')
 
         if public_key == None:
             raise EmptyPublicKey
         else:
             
-            
+            encrypted_message = self.convert_hexadecimal_to_decima(hexadecimal_encrypted_message)
             decoded_message : str = ''
+
             private_key = self.generate_private_key_from_user_input(public_key, (prime_number1 - 1) * (prime_number2 - 1))
             RSA_module = prime_number1 * prime_number2
             for letter in encrypted_message:
@@ -838,7 +841,8 @@ class EncriptationEngine:
             for letter in message:
                 encoded_message.append(self.encrypt_letter_with_inputs(ord(letter),public_key,RSA_module))
 
-            return encoded_message
+            hexadecimal_encrypted_message = self.convert_decimal_to_hexadecimal(encoded_message)
+            return hexadecimal_encrypted_message
         
     def is_prime(self,prime_number) -> bool:
         '''
@@ -872,4 +876,58 @@ class EncriptationEngine:
             i += 6
         return True
     
+    def convert_decimal_to_hexadecimal(self, encrypted_message: list[int]) -> list[str]:
+        '''
+        Converts the encrypted message from decimal numbers to hexadecimal             
+
+        Convierte el mensaje encriptado de números decimales a hexadecimal
+
+        Parameters
+        ----------
+
+        encrypted_message : list[int]
+            Encrypted message in decimal numbers /
+            Mensaje encriptado en números decimales
+
+        Returns
+        -------
+
+        hexadecimal_encrypted_message : list[str]
+            Encrypted message in hexadecimal numbers /
+            Mensaje encriptado en números hexadecimales
+        '''
+
+        hexadecimal_encrypted_message : list = []
+        for letter in encrypted_message:
+            hexadecimal_encrypted_message.append(hex(letter).replace('0x',''))
+
+        return hexadecimal_encrypted_message
+
+    def convert_hexadecimal_to_decima(self, encrypted_message: list[str]) -> list[int]:
+        '''
+        Converts the encrypted message from hexadecimal numbers to decimal
+
+        Convierte el mensaje encriptado de números hexadecimales a decimales
+
+        Parameters
+        ----------
+
+        encrypted_message : list[str]
+            Encrypted message in hexadecimal numbers /
+            Mensaje encriptado en números hexadecimales
+
+        Returns
+        -------
+
+        decimal_encrypted_message : list[int]
+            Encrypted message in decimal numbers /
+            Mensaje encriptado en números decimales
+        '''
+
+        decimal_encrypted_message : list = []
+        
+        #Implementación aquí
+
+        return decimal_encrypted_message
+
     
