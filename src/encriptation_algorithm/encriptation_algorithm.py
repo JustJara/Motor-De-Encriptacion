@@ -3,14 +3,14 @@ File with the encriptation algorithm logic
 
 Archivo con la lógica del algoritmo de encriptación
 '''
-
+import psycopg2
 import sys
 import random
 import math
 import re
-import controller.database_controller as db_controller
 
 sys.path.append('encryption_engine/src') 
+from controller.database_controller import DatabaseController
 
 class EmptyMessageError(Exception):
     '''
@@ -100,7 +100,21 @@ class NonPrimeNumber(Exception):
 
     def __str__(self) -> str:
         return self.message
+    
+class ExistingUser(Exception):
 
+    '''
+    Custom exception to indicate that the entered username has been already registered
+
+    Excepción personalizada para indicar que el nombre de usuario ingresado ya ha sido registrado
+    '''
+
+    def __init__(self, *args: object) -> None:
+        super().__init__(*args)
+        self.message = 'El nombre de usuario ingresado ya ha sido registrado anteriormente. Intente ingresando otro nombre de usuario'
+
+    def __str__(self) -> str:
+        return self.message
 class EmptyInputValuesError(Exception):
     '''
 
@@ -162,8 +176,36 @@ class EncriptationEngine:
         self.RSA_module: int = None
 
         self.phi : int = None
+        default_user = User('admin','admin')
+        self.current_user : User = default_user
+        self.db_controller = DatabaseController()
+        self.create_table()
 
-    def register_user(self,username: str, password: str) -> User:
+    def create_table(self):
+        '''
+        Creates the table in the database
+
+        Crea la tabla en la base de datos
+        '''
+        try:
+            self.db_controller.create_table()
+            return True
+        except psycopg2.errors.DuplicateTable as error:
+            print('La tabla ya existe en la base de datos')
+            return False
+            
+
+    def delete_table(self):
+        '''
+        Deletes the table in the database
+
+        Elimina la tabla en la base de datos
+        '''
+        self.db_controller.delete_table()
+
+    
+
+    def register_user(self, username: str, password: str) -> bool:
         '''
         Registers a user with a username and password
 
@@ -188,9 +230,152 @@ class EncriptationEngine:
             Objeto de tipo usuario creado con el nombre de usuario y la contraseña
         '''
 
-        user : User = User(username, password)
-        db_controller.insert_user(user)
+        # Verifica si el usuario ya existe en la base de datos
+        if self.db_controller.check_username_existence(username) == None:
 
+            user : User = User(username, password)
+
+            user_inserted = self.db_controller.register_user_db(user)
+            if user_inserted:
+                print('Usuario registrado con éxito')
+                return True
+
+        else:
+            raise psycopg2.errors.UniqueViolation('El nombre de usuario está asociado a otra cuenta. Intente ingresando un nombre de usuario diferente o iniciando sesión.')
+        
+    def login_user(self,username:str,password:str) -> bool:
+        '''
+        Logs in a user with a username and password
+
+        Inicia sesión de un usuario con un nombre de usuario y una contraseña
+
+        Parameters
+        ----------
+
+        username : str
+            Username to be logged in /
+            Nombre de usuario a iniciar sesión
+
+        password : str
+            Password to be logged in /
+            Contraseña a iniciar sesión
+
+        Returns
+        -------
+
+        user : User
+            User object created with the username and password /
+            Objeto de tipo usuario creado con el nombre de usuario y la contraseña
+        '''
+        login_user_status = self.db_controller.login_user_db(username,password)
+        if login_user_status == False:
+            raise Exception('La contraseña ingresada no es correcta. Intente nuevamente.')
+        else:
+            self.current_user = User(username, password)
+            return True
+
+    def log_out(self):
+        '''
+        Logs out the current user
+
+        Cierra sesión del usuario actual
+        '''
+        self.current_user = User('admin','admin')
+        print('Cierre de sesión exitoso')
+
+    def save_user_message(self,secret_key,encrypted_message,original_message):
+        '''
+        Saves the user message in the database
+
+        Guarda el mensaje del usuario en la base de datos
+
+        Parameters
+        ----------
+
+        secret_key : str
+            Secret key to be stored in the database /
+            Clave secreta a almacenar en la base de datos
+
+        encrypted_message : list[int]
+            Encrypted message to be stored in the database /
+            Mensaje encriptado a almacenar en la base de datos
+
+        original_message : str
+            Original message to be stored in the database /
+            Mensaje original a almacenar en la base de datos
+        '''
+
+        username = self.current_user.username
+        self.db_controller.insert_user_messages(username,secret_key,encrypted_message,original_message)
+
+    def get_user_messages(self):
+
+        '''
+        Gets the user messages from the database
+
+        Obtiene los mensajes del usuario de la base de datos
+
+        Returns
+        -------
+
+        user_messages : list
+            List of user messages /
+            Lista de mensajes del usuario
+        '''
+
+        username = self.current_user.username
+        if username == 'admin':
+            return []
+        user_messages = self.db_controller.get_user_messages(username)
+        return user_messages
+
+    def change_user_passcode(self, old_password, new_password):
+        '''
+        Changes the user password in the database
+
+        Cambia la contraseña del usuario en la base de datos
+
+        Parameters
+        ----------
+
+        old_password : str
+            Old password to be changed /
+            Contraseña antigua a cambiar
+
+        new_password : str
+            New password to be stored in the database /
+            Nueva contraseña a almacenar en la base de datos
+        '''
+
+        current_passcode = self.current_user.password
+        if current_passcode != old_password:
+            raise Exception('La contraseña actual no es correcta. Intente nuevamente.')
+        if current_passcode == new_password:
+            raise Exception('La nueva contraseña no puede ser igual a la anterior. Intente ingresando una nueva contraseña.')
+        if new_password == '':
+            raise Exception('La nueva contraseña no puede estar vacía. Intente ingresando una nueva contraseña.')
+        else:
+            username = self.current_user.username
+            change_passcode_status = self.db_controller.change_user_passcode(username,new_password)
+            if change_passcode_status:
+                self.current_user.password = new_password
+                print('Contraseña cambiada con éxito')
+                return True
+            return False
+
+    def delete_user_messages(self):
+        '''
+        Deletes all the user messages in the database
+
+        Elimina todos los mensajes del usuario en la base de datos
+        '''
+
+        username = self.current_user.username
+        delete_status = self.db_controller.delete_user_messages(username)
+        if delete_status:
+            print('Mensajes eliminados con éxito')
+            return True
+        return False
 
     def fill_prime_set(self):
         '''
