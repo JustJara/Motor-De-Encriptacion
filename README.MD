@@ -30,7 +30,7 @@ sensible, para que un receptor autorizado o el emisor después puedan acceder al
 
 		2. Instalar el kivy
 			- Para instalar la librería kivy hay que copiar el siguiente comando en la terminal:
-			command = python -m pip install "kivy[base]"
+			<pre>command = python -m pip install "kivy[base]"</pre>
 			cuando el comando ya este escrito en la terminal pulsa la tecla 'ENTER'.
 
 		- Para más información acerca de la instalación de Kivy, acceder a la documentación oficial: https://kivy.org/doc/stable/gettingstarted/installation.html
