@@ -16,7 +16,7 @@ class encryptionTests(unittest.TestCase):
         public_key : int= 5
         prime_number1 :int= 29
         prime_number2 :int= 127
-        expected_encrypted_message = [17, 2212, 225, 2302, 1219, 257, 2302, 2478, 744, 55, 418, 744, 257, 2212, 55, 1552, 2095]
+        expected_encrypted_message = ['11', '8a4', 'e1', '8fe', '4c3', '101', '8fe', '9ae', '2e8', '37', '1a2', '2e8', '101', '8a4', '37', '610', '82f']
         unencripted_message = 'hay un mercenario'
 
         encrypted_message = EncriptationEngine().encode_and_encrypt_message_with_inputs(unencripted_message,prime_number1,prime_number2,public_key)
@@ -28,7 +28,7 @@ class encryptionTests(unittest.TestCase):
         public_key : int= 5
         prime_number1 :int= 97
         prime_number2 :int= 223
-        expected_encrypted_message = [26, 10920, 13029, 6305, 4751, 13833, 3366, 10920, 21167, 8590, 4751, 20153, 10920, 4751, 20153, 10920, 8156, 4751, 18410, 6481, 3366, 8590, 4751, 10331, 12580, 3366, 10920]
+        expected_encrypted_message = ['1a', '2aa8', '32e5', '18a1', '128f', '3609', 'd26', '2aa8', '52af', '218e', '128f', '4eb9', '2aa8', '128f', '4eb9', '2aa8', '1fdc', '128f', '47ea', '1951', 'd26', '218e', '128f', '285b', '3124', 'd26', '2aa8']
         unencripted_message = 'hola profe no nos tire duro'
 
         encrypted_message = EncriptationEngine().encode_and_encrypt_message_with_inputs(unencripted_message,prime_number1,prime_number2,public_key)
@@ -41,7 +41,7 @@ class encryptionTests(unittest.TestCase):
         public_key : int= 7
         prime_number1 :int= 97
         prime_number2 :int= 151
-        expected_encrypted_message = [6679, 12377, 8066, 13620, 8818, 183, 6679, 3407, 8818, 14215, 8342, 14215, 13674, 183, 1463, 7109, 7694, 1953, 8066, 7830, 183, 13926, 12377, 8342, 1747, 8342, 3488, 8066, 7830]
+        expected_encrypted_message = ['1a17', '3059', '1f82', '3534', '2272', 'b7', '1a17', 'd4f', '2272', '3787', '2096', '3787', '356a', 'b7', '5b7', '1bc5', '1e0e', '7a1', '1f82', '1e96', 'b7', '3666', '3059', '2096', '6d3', '2096', 'da0', '1f82', '1e96']
         unencripted_message = 'profe piedad, muchos trabajos'
 
         encrypted_message = EncriptationEngine().encode_and_encrypt_message_with_inputs(unencripted_message,prime_number1,prime_number2,public_key)
@@ -177,7 +177,7 @@ class encryptionTests(unittest.TestCase):
         public_key : int= 5
         prime_number1 :int= 157
         prime_number2 :int= 79
-        expected_encrypted_message = [9327, 6415, 11000, 11000, 1367, 3542, 1367, 2470, 1367, 3542, 2470, 5964]
+        expected_encrypted_message = ['246f', '190f', '2af8', '2af8', '557', 'dd6', '557', '9a6', '557', 'dd6', '9a6', '174c']
         unencripted_message = '123385848546'
 
         encrypted_message = EncriptationEngine().encode_and_encrypt_message_with_inputs(unencripted_message,prime_number1,prime_number2,public_key)
@@ -190,7 +190,7 @@ class encryptionTests(unittest.TestCase):
         public_key : int= 5
         prime_number1 :int= 37
         prime_number2 :int= 3
-        expected_encrypted_message = [82]
+        expected_encrypted_message = ['52']
         unencripted_message = 'a'
 
         encrypted_message = EncriptationEngine().encode_and_encrypt_message_with_inputs(unencripted_message,prime_number1,prime_number2,public_key)
@@ -203,7 +203,7 @@ class encryptionTests(unittest.TestCase):
         public_key : int= 7
         prime_number1 :int= 151
         prime_number2 :int= 59
-        expected_encrypted_message = [2133, 5290, 3193, 8805, 4496, 3928, 5290, 2133, 6581, 4496]
+        expected_encrypted_message = ['855', '14aa', 'c79', '2265', '1190', 'f58', '14aa', '855', '19b5', '1190']
         unencripted_message = '@%$*#&%@(#'
 
         encrypted_message = EncriptationEngine().encode_and_encrypt_message_with_inputs(unencripted_message,prime_number1,prime_number2,public_key)

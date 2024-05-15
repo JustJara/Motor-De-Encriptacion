@@ -269,6 +269,9 @@ class DatabaseController:
             Nuevo passcode a actualizar en la base de datos
 
         """
+        user_existence = self.check_username_existence(username)
+        if user_existence == None:
+            raise UniqueViolation('El nombre de usuario NO existe')
         cursor = self.get_cursor()
         sql_sentence = ''
         with open('sql_sentences/change_user_passcode.sql', 'r') as file:
@@ -329,6 +332,8 @@ class DatabaseController:
             Nombre de usuario a eliminar en la base de datos
 
         """
+        if self.get_user_messages(username) == []:
+            raise Exception('El usuario no tiene mensajes para eliminar')
         cursor = self.get_cursor()
         sql_sentence = ''
         with open('sql_sentences/delete_user_messages.sql', 'r') as file:
@@ -337,3 +342,4 @@ class DatabaseController:
         cursor.execute(sql_sentence, (username,))
         cursor.connection.commit()
         return True
+

@@ -61,7 +61,7 @@ class DataBaseTestCases(unittest.TestCase):
         Validates that a user can be registered in the database
         '''
         
-        username = 'test_username1223'
+        username = 'testusername'
         passcode = 'test_passcode123'
 
         user = User(username,passcode)
@@ -77,10 +77,10 @@ class DataBaseTestCases(unittest.TestCase):
         Validates that a user cannot be created with the same username as another already registered
         '''
         
-        username1 = 'test_username'
+        username1 = 'test1username'
         passcode1 = 'test_passcode'
 
-        username2 = 'test_username'
+        username2 = 'test1username'
         passcode2 = 'test_passcode'
 
         user1 = User(username1,passcode1)
@@ -88,7 +88,7 @@ class DataBaseTestCases(unittest.TestCase):
         
         DatabaseController().register_user_db(user1)
 
-        self.assertRaises(UniqueViolation,DatabaseController().register_user_db,user2)
+        self.assertRaises(IntegrityError,DatabaseController().register_user_db,user2)
         
     def test_login_user(self):
         ''''
@@ -130,7 +130,7 @@ class DataBaseTestCases(unittest.TestCase):
         Validates that a user´s password can be changed
         '''
         
-        username = 'test_username'
+        username = 'test_usern4me'
         passcode = 'test_passcode'
         new_passcode = 'new_test_passcode'
 
@@ -165,7 +165,33 @@ class DataBaseTestCases(unittest.TestCase):
         self.assertEqual(expected_output,True)
 
     def test_delete_all_user_messages_with_table_empty(self):
-        pass
+        '''
+        Valida que se lance una exepción cuando se intente borrar mensajes y no hayan para mensajes en la tabla
+
+        Validates that an exception is thrown when trying to delete messages and there are no messages in the table    
+        '''
+
+        username = 'username_test'
+        passcode = 'passcode_test'
+
+        user = User(username, passcode)
+
+        DatabaseController().register_user_db(user)
+
+        self.assertRaises(Exception,DatabaseController().delete_user_messages,username)
+        
+    def test_change_error_passcode(self):
+        '''
+        Valida que no se pueda cambiar la contraseña de un usuario que no existe
+        
+        Validates that the password of a user that doesn´t exist cannot be changed
+        '''
+        
+        username = 'unexistent_username'
+        passcode = 'test_passcode'
+        new_passcode = 'new_test_passcode'
+
+        self.assertRaises(UniqueViolation,DatabaseController().change_user_passcode,username,new_passcode)
 
     #Falta el de cambiar contraseña que de error
     

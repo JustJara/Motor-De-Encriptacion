@@ -211,9 +211,10 @@ class ChangePasscodeScreen(Screen):
         except ValueError as error:
             self.show_popup_passcode_errors(error)
         except Exception as error:
+            print(error)
             self.show_popup_passcode_errors(error)
 
-    def show_popup_passcode_errors(error):
+    def show_popup_passcode_errors(error, instance):
         '''
         This method shows a popup with the error message.
 
@@ -937,7 +938,9 @@ class DecryptationScreen(Screen):
                 encrypted_message = encrypted_message.strip('[]')
 
                 # Dividir la cadena en elementos individuales
-                elementos = encrypted_message.split(', ')
+                encrypted_message = encrypted_message.split(', ')
+                elementos_hexadecimal = [str(elemento.strip("'")) for elemento in encrypted_message]
+                elementos = self.encriptation_engine.convert_hexadecimal_to_decimal(elementos_hexadecimal)
 
                 # Convertir cada elemento en la lista a un entero
                 list_encrypted_message = [int(elemento) for elemento in elementos]

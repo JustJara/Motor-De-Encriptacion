@@ -625,7 +625,7 @@ class EncriptationEngine:
             hexadecimal_encrypted_message = self.convert_decimal_to_hexadecimal(encrypted_message)
             return hexadecimal_encrypted_message
     
-    def decode_and_decrypt_message(self,hexadecimal_encrypted_message : list[int], public_key : int ,prime_number1 : int,prime_number2 : int) -> str:
+    def decode_and_decrypt_message(self,encrypted_message : list[int], public_key : int ,prime_number1 : int,prime_number2 : int) -> str:
         '''
         Decodes and decrypts the message entered by the user
 
@@ -675,14 +675,13 @@ class EncriptationEngine:
 
         if prime_number1 == None or prime_number2 == None:
             raise EmptyInputValuesError
-        if hexadecimal_encrypted_message == '':
+        if encrypted_message == '':
             raise SyntaxError('El mensaje no puede estar vacío')
 
         if public_key == None:
             raise EmptyPublicKey
         else:
             
-            encrypted_message = self.convert_hexadecimal_to_decima(hexadecimal_encrypted_message)
             decoded_message : str = ''
 
             private_key = self.generate_private_key_from_user_input(public_key, (prime_number1 - 1) * (prime_number2 - 1))
@@ -903,7 +902,7 @@ class EncriptationEngine:
 
         return hexadecimal_encrypted_message
 
-    def convert_hexadecimal_to_decima(self, encrypted_message: list[str]) -> list[int]:
+    def convert_hexadecimal_to_decimal(self, encrypted_message: list[str]) -> list[int]:
         '''
         Converts the encrypted message from hexadecimal numbers to decimal
 
@@ -923,11 +922,12 @@ class EncriptationEngine:
             Encrypted message in decimal numbers /
             Mensaje encriptado en números decimales
         '''
-
         decimal_encrypted_message : list = []
-        
-        #Implementación aquí
+        for hexadecimal_number in encrypted_message:
+            decimal_encrypted_message.append(int(hexadecimal_number, 16))
+            print(hexadecimal_number)
 
         return decimal_encrypted_message
 
-    
+
+

@@ -13,26 +13,31 @@ sensible, para que un receptor autorizado o el emisor después puedan acceder al
 
 ## ¿Cómo lo hacemos funcionar?
 
--Prerrequisitos: Hay que tener instalado un IDE de preferencia se recomienda el uso de VisualStudio Code ya que en este IDE fue desarrollado, tener instaladas las últimas versiones de Python y de pip disponibles.
+- Prerrequisitos: 
+	1. Tener instaladas las últimas versiones de Python y de pip disponibles.
 
-Tener instalada la libreria kivy
+	2. Tener instalada la libreria kivy
 
-Para instalarla por medio de pip (instalador de paquetes de python)
+		- Para instalarla por medio de pip (instalador de paquetes de python)
 
-hay que hacer los siguientes pasos
+		  hay que hacer los siguientes pasos
 
-En caso de ser usuario de los sistemas operativos Windows, macOS, Linux, BSD y RPi.
+		En caso de ser usuario de los sistemas operativos Windows, macOS, BSD y RPi.
 
-1. Abrir la terminal de python desde visual studio code
-	- Para abrir la terminal de python es necesario ubicarse en la parte de arriba a la izquierda del visual studio code, darle click a la
-	opción terminal, y seguidamente darle click a la opción new terminal o en español nueva terminal.
+		1. Abrir la terminal de python desde visual studio code
+			- Para abrir la terminal de python es necesario ubicarse en la parte de arriba a la izquierda del visual studio code, darle click a la
+			opción terminal, y seguidamente darle click a la opción new terminal o en español nueva terminal.
 
-2. Instalar el kivy
-	- Para instalar la librería kivy hay que copiar el siguiente comando en la terminal:
-	python -m pip install "kivy[base]"
-	cuando el comando ya este escrito en la terminal pulsa la tecla 'ENTER'.
+		2. Instalar el kivy
+			- Para instalar la librería kivy hay que copiar el siguiente comando en la terminal:
+			command = python -m pip install "kivy[base]"
+			cuando el comando ya este escrito en la terminal pulsa la tecla 'ENTER'.
 
-- Para más información acerca de la instalación de Kivy, acceder a la documentación oficial: https://kivy.org/doc/stable/gettingstarted/installation.html
+		- Para más información acerca de la instalación de Kivy, acceder a la documentación oficial: https://kivy.org/doc/stable/gettingstarted/installation.html
+
+-Tener instalada la libreria psycopg2-binary
+
+
 
 
 ## ¿Cómo está hecho?
