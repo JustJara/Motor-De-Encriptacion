@@ -18,27 +18,17 @@ sensible, para que un receptor autorizado o el emisor después puedan acceder al
 
 	2. Tener instalada la libreria kivy
 
-		- Para instalarla por medio de pip (instalador de paquetes de python)
+		- Para instalarla por medio de pip (instalador de paquetes de python) ejecute el siguiente comando en la terminal:
+			<pre>python -m pip install "kivy[base]"</pre>
 
-		  hay que hacer los siguientes pasos
+		- Para más información acceder a la documentación oficial: https://kivy.org/doc/stable/gettingstarted/installation.html
 
-		En caso de ser usuario de los sistemas operativos Windows, macOS, BSD y RPi.
+	3. Tener instalada la libreria psycopg2-binary
 
-		1. Abrir la terminal de python desde visual studio code
-			- Para abrir la terminal de python es necesario ubicarse en la parte de arriba a la izquierda del visual studio code, darle click a la
-			opción terminal, y seguidamente darle click a la opción new terminal o en español nueva terminal.
+		- Para instalarla por medio de pip ejecutar el siguiente comando en la terminal de preferencia:
+		<pre>pip install psycopg2-binary</pre>
 
-		2. Instalar el kivy
-			- Para instalar la librería kivy hay que copiar el siguiente comando en la terminal:
-			<pre>command = python -m pip install "kivy[base]"</pre>
-			cuando el comando ya este escrito en la terminal pulsa la tecla 'ENTER'.
-
-		- Para más información acerca de la instalación de Kivy, acceder a la documentación oficial: https://kivy.org/doc/stable/gettingstarted/installation.html
-
--Tener instalada la libreria psycopg2-binary
-
-
-
+		- Para más información consultar la documentación original: https://www.psycopg.org/docs/
 
 ## ¿Cómo está hecho?
 
@@ -47,24 +37,36 @@ necesarios para que el programa se ejecute correctamente.
 
 Para la interfaz grafica, la libreria usada es kivy.
 
+En cuanto a la base de datos, se utilizó PostgreSQL con la libreria de python psycopg2 que permite la conexión de la base de datos y el programa.
+
 en cuanto a la organización de los módulos:
 
-En el proyecto contamos con 2 carpetas principales src y tests.
-Dentro de src contamos con otras dos carpetas, las cuales son las siguientes:
+En el proyecto contamos con 3 carpetas principales sql_sentences, src y tests.
+	1. Dentro de sql_sentences contamos con todas las sentencias necesarias para realizar las diferentes consultas que requiere el programa.
 
-- encriptation_algorithm -> en esta carpeta se encuentra el archivo encriptation_algorithm.py donde esta la lógica necesaria para que el motor de encripción funcione correctamente junto con las excepciones
+	2. Dentro de src contamos con otras cuatro carpetas, las cuales son las siguientes:
+		
+		- console -> en esta carpeta se encuentra el archivo encriptation_console.py donde se encuentra la implementación
+		para mostrar una interfaz por consola.
 
-- encriptation_console -> en esta carpeta se encuentra el archivo encriptation_console.py donde se encuentra la implementación
-para mostrar una interfaz por consola.
+		- controller -> en esta carpeta se encuentra el archivo database_controller.py donde se encuentra la implementación
+		para controlar las consultas hacia la base de datos. Por otro lado se encuentra el archivo secret_config_example.py en donde se deja una plantilla
+		para que el usuario que ejecutará la aplicación haga la conexión a su base de datos propia.
 
-- GUI -> en esta carpeta se encuentra el archivo encryptation_gui.py, la implementación para ejecutar la aplicación con una interfaz gráfica.
+		- encriptation_algorithm -> en esta carpeta se encuentra el archivo encriptation_algorithm.py donde esta la lógica necesaria para que el motor de encripción funcione correctamente junto con las excepciones
 
-Dentro de la carpeta tests contamos con un solo archivo, test_cases.py, en este archivo se encuentran 20 casos de prueba implementados , entre estos casos de prueba, hay 3 casos de prueba de encripción, 3 casos de prueba de desencripción, 8 casos de prueba de error (4 de encripción y 4 de desencripción). Finalmente 6 casos de prueba excepcionales (3 de encripción y 3 de desencripción)
+		- GUI -> en esta carpeta se encuentra el archivo encryptation_gui.py, la implementación para ejecutar la aplicación con una interfaz gráfica.
 
+	3. Dentro de la carpeta tests contamos con otras dos carpetas, las cuales son las siguientes:
 
+		- database_tests -> en esta carpeta se almacena un archivo llamado database_test_cases.py el cual contiene todos los casos de prueba para la base de datos.
+
+		- encryption_engine_tests -> en esta carpeta se almacena un archivo llamado test_cases.py el cual contiene todos los casos de prueba para el motor de encripción.
 
 ## ¿Cómo usar el programa?
 
+- Antes de ejecutar cualquier comando, es necesario que hagas una copia del archivo 'secret_config_example.py' y renombrarlo de la siguiente manera:
+'secret_config.py', dentro de este archivo que copiaste es donde insertaras tus credenciales de NeonTech para poder hacer uso de la base de datos. Si no se hace este paso el programa no funcionará.
 
 - Para ejecutar el programa de encripción desde la interfaz por consola, deberá ingresar el siguiente comando:
 	- python3 app.py
@@ -85,8 +87,12 @@ Dentro de la carpeta tests contamos con un solo archivo, test_cases.py, en este 
 
 ## ¿Cómo ejecutar los tests?
 
-Para ejecutar los casos de prueba deberá de escrbir en la terminal de python el siguiente comando:
-- python3 tests/test_cases.py
+Para ejecutar los casos de prueba deberá de escrbir en la terminal de python los siguientes comandos:
+- Este ejecutará los casos de prueba para el motor de encripción:
+<pre>python3 tests/encryption_engine_tests/test_cases.py</pre>
+
+- Este ejecutará los casos de prueba para la base de datos:
+<pre>python3 tests/database_tests/database_test_cases.py</pre>
 
 
 
